@@ -1,0 +1,65 @@
+﻿body{
+	background: #ddd
+}
+.loginWrapper{
+	margin: 250px auto;
+    width: 400px;
+    padding: 30px 50px;
+    background: #FFFFFF;
+    overflow: hidden;
+    font-size: 14px;
+    font-family: '微软雅黑','文泉驿正黑','黑体';
+}
+.loginWrapper .logo{
+	width:100%;
+	height:44px;
+	line-height: 44px;
+	font-size: 20px;
+	text-align: center;
+	border-bottom:1px solid #ddd;
+}
+.loginWrapper .login_form{
+	margin-top: 15px;
+}
+.loginWrapper .login_form .login-item{
+	padding: 2px 8px;
+	border:1px solid #dedede;
+	border-radius: 8px;
+	margin-top: 10px;
+}
+.loginWrapper .login_form .login_input{
+	height: 35px;
+    border: none;
+    line-height: 35px;
+    width: 200px;
+    font-size: 14px;
+    outline: none;
+}
+.loginWrapper .login_form .verify{
+	float: left;
+}
+.loginWrapper .verify .verify_input{
+	width: 160px;
+}
+.loginWrapper .verifyimg{
+	height: 30px;
+    margin: 20px 0 0 20px;
+}
+.loginWrapper .login-sub{
+	text-align: center;
+}
+.loginWrapper .login-sub input{
+	margin-top:15px;
+    background: #45B549;
+    line-height: 35px;
+    width: 150px;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-family: '微软雅黑','文泉驿正黑','黑体';
+    border: none;
+    border-radius: 5px;
+}
+.loginWrapper .login_form .login-item .error{
+	color: #F00;
+	font-family: '微软雅黑','文泉驿正黑','黑体';
+}
