@@ -5,38 +5,36 @@ SET time_zone = '+8:00';
 -- initialization --
 
 INSERT INTO tbl_identity(
-        TI_NAME,
-        TI_DETAIL
+        tiName,
+        tiDetail
 ) VALUE(
         '管理员',
         '管理员测试'
 );
 
 INSERT INTO tbl_identity(
-        TI_NAME,
-        TI_DETAIL
+        tiName,
+        tiDetail
 ) VALUE(
         '餐厅',
         '餐厅测试'
 );
 
 INSERT INTO tbl_identity(
-        TI_NAME,
-        TI_DETAIL
+        tiName,
+        tiDetail
 ) VALUE(
         '学生',
         '学生'
 );
 
-----
-
 INSERT INTO tbl_user(
-        TU_NAME,
-        TU_PWD,
-        TU_ADDRESS,
-        TU_DATE,
-        TI_ID,
-        TU_DETAIL
+        tuName,
+        tuPwd,
+        tuAddress,
+        tuDate,
+        tiId,
+        tuDetail
 ) VALUE(
         'guanliyuan1',
         MD5('123456'),
@@ -47,12 +45,12 @@ INSERT INTO tbl_user(
 );
 
 INSERT INTO tbl_user(
-        TU_NAME,
-        TU_PWD,
-        TU_ADDRESS,
-        TU_DATE,
-        TI_ID,
-        TU_DETAIL
+        tuName,
+        tuPwd,
+        tuAddress,
+        tuDate,
+        tiId,
+        tuDetail
 ) VALUE(
         'canting1',
         MD5('123456'),
@@ -63,12 +61,12 @@ INSERT INTO tbl_user(
 );
 
 INSERT INTO tbl_user(
-        TU_NAME,
-        TU_PWD,
-        TU_ADDRESS,
-        TU_DATE,
-        TI_ID,
-        TU_DETAIL
+        tuName,
+        tuPwd,
+        tuAddress,
+        tuDate,
+        tiId,
+        tuDetail
 ) VALUE(
         'xuesheng1',
         MD5('123456'),
@@ -78,15 +76,13 @@ INSERT INTO tbl_user(
         '学生测试1'
 );
 
-----
-
 INSERT INTO tbl_dish(
-        TD_NAME,
-        TD_IMG,
-        TU_ID,
-        TD_PRICE,
-        TD_DATE,
-        TD_DETAIL
+        tdName,
+        tdImg,
+        tuId,
+        tdPrice,
+        tdDate,
+        tdDetail
 ) VALUE(
         '辣子鸡丁',
         '../data/img/lazijiding20171121002',
@@ -97,12 +93,12 @@ INSERT INTO tbl_dish(
 );
 
 INSERT INTO tbl_dish(
-        TD_NAME,
-        TD_IMG,
-        TU_ID,
-        TD_PRICE,
-        TD_DATE,
-        TD_DETAIL
+        tdName,
+        tdImg,
+        tuId,
+        tdPrice,
+        tdDate,
+        tdDetail
 ) VALUE(
         '宫保鸡丁',
         '../data/img/gongbaojiding20171121001',

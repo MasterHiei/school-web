@@ -8,28 +8,28 @@
     </insert>
 
     <!-- 删除用户 -->
-    <update id="deleteUser" parameterType="com.school.entity.UserEntity">
-        update tbl_user set DELETE_FLG=#{deleteFlg} where TU_ID=#{tuId}
+    <update id="deleteUser" parameterType="java.lang.String">
+        update tbl_user set DELETE_FLG=#{deleteFlg} where tuName=#{tuName}
     </update>
 
     <!-- 修改用户 -->
     <update id="updateUser" parameterType="com.school.entity.UserEntity" >
-        update tbl_user set TU_NAME=#{tuName},TU_PWD=#{tuPwd},TU_ADDRESS=#{tuAddress},TU_DETAIL=#{tuDetail} where TU_ID=#{tuId}
+        update tbl_user set tuName=#{tuName},tuPwd=#{tuPwd},tuAddress=#{tuAddress},tuDetail=#{tuDetail} where tuName=#{tuName}
     </update>
 
     <!-- 查询单个用户 -->
-    <select id="selectOneUser" parameterType="java.lang.Long" resultType="com.school.entity.UserEntity">
-        select * from tbl_user where TU_ID=#{tuId}
+    <select id="selectOneUser" parameterType="java.lang.String" resultType="com.school.entity.UserEntity">
+        select * from tbl_user where tuName=#{tuName} and deleteFlg='0'
     </select>
     <resultMap type="com.school.entity.UserEntity" id="user">
-        <id column="TU_ID" property="tuId" />
-        <result column="TU_NAME" property="tuName"/>
-        <result column="TU_PWD" property="tuPwd"/>
-        <result column="TU_ADDRESS" property="tuAddress" />
-        <result column="TU_DATE" property="tuDate" />
-        <result column="TI_ID" property="tiId"/>
-        <result column="TU_DETAIL" property="tuDetail"/>
-        <result column="DELETE_FLG" property="deleteFlg"/>
+        <id column="tuId" property="tuId" />
+        <result column="tuName" property="tuName"/>
+        <result column="tuPwd" property="tuPwd"/>
+        <result column="tuAddress" property="tuAddress" />
+        <result column="tuDate" property="tuDate" />
+        <result column="tiId" property="tiId"/>
+        <result column="tuDetail" property="tuDetail"/>
+        <result column="deleteFlg" property="deleteFlg"/>
     </resultMap>
 
     <!-- 查询全部用户数量 -->

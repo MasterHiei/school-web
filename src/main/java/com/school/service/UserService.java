@@ -37,9 +37,9 @@ public class UserService implements UserServiceImpl {
 
     // 查询单个用户
     @Override
-    public UserEntity selectOneUser(long tuId) throws Exception{
-        UserEntity userEntity = userDao.selectOneUser(tuId);
-        System.out.println(userEntity);
+    public UserEntity selectOneUser(String tuName) throws Exception{
+        UserEntity userEntity = userDao.selectOneUser(tuName);
+        System.out.println("查询单个用户结果:" + userEntity);
         return userEntity;
     }
 

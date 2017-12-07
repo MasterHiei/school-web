@@ -16,7 +16,7 @@ public interface UserDao {
     // 修改用户
     void updateUser(UserEntity userEntity) throws Exception;
     // 查询单个用户
-    UserEntity selectOneUser(long tuId) throws Exception;
+    UserEntity selectOneUser(String tuName) throws Exception;
     // 查询全部用户数量
     int selectUserCount() throws Exception;
 
