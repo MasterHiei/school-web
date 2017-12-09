@@ -24,6 +24,12 @@ public class UserEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     /** USER_SESSION */
     public static final String USER_SESSION = "user_Session";
+    /** ADMIN_PERMISSION */
+    public static final long ADMIN_PERMISSION = 1001;
+    /** CANTEEN_PERMISSION */
+    public static final long CANTEEN_PERMISSION = 1002;
+    /** STUDENT_PERMISSION */
+    public static final long STUDENT_PERMISSION = 1003;
     
     /** tcId  */
     private Long tuId;
