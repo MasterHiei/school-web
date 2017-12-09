@@ -1,2 +1,2 @@
 # school-web
-School Restaurant Ordering System ~ALPHA VERSION~
+School Restaurant Ordering System -ALPHA-
