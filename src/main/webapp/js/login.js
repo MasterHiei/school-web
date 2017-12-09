@@ -14,7 +14,7 @@ $(function(){
         });
 
         // 触发输入检查
-        $('.login_input').trigger('blur');
+        $('.input').trigger('blur');
 
         // 正常情况下的处理
 		if (isNameValid && isPwdValid){
@@ -66,7 +66,7 @@ function checkName(){
 	}
 	var reg = /^\w{6,12}$/;
 	if(!reg.test(name)){
-		$('#count-msg').html('用户名中含有特殊字符');
+		$('#count-msg').html('用户名格式不正确');
 		return false;
 	}
 	$('#count-msg').empty();
@@ -82,7 +82,7 @@ function checkPassword(){
 	}
 	var reg = /^\w{6,12}$/;
 	if(!reg.test(password)){
-		$('#password-msg').html('密码中含有特殊字符');
+		$('#password-msg').html('密码格式不正确');
 		return false;
 	}
 	$('#password-msg').empty();
