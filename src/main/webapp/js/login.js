@@ -24,7 +24,7 @@ $(function(){
 
 	// 注册跳转
 	$('#register').click(function () {
-		window.location.href = 'register.jsp';
+		window.location.href = '../register.html';
     })
 });
 
@@ -47,10 +47,10 @@ function login() {
 		success: function (msg) {
         	// 学生账户登录，跳转至点餐页面
 			if (msg == '1')
-				window.location.href = 'order.jsp';
+				window.location.href = 'order.html';
             // 管理账户登录，跳转至后台管理页面
 			else if (msg == '2')
-				window.location.href = 'management.jsp';
+				window.location.href = 'management.html';
 			else
 				alert(msg);
         }
