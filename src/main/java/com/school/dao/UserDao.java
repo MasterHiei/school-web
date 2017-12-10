@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface UserDao {
 
     // 添加用户
-    void insertUser(UserEntity userEntity) throws Exception;
+    int insertUser(UserEntity userEntity) throws Exception;
     // 删除用户
     void deleteUser(UserEntity userEntity) throws Exception;
     // 修改用户

@@ -63,9 +63,6 @@ h1{
 	height: 30px;
     margin: 20px 0 0 20px;
 }
-.inputWrapper .input-sub{
-	text-align: center;
-}
 .inputWrapper .input-sub input{
 	margin-top:15px;
     background: #45B549;
@@ -80,4 +77,7 @@ h1{
 .inputWrapper .input_form .input-item .error{
 	color: #F00;
 	font-family: '微软雅黑','文泉驿正黑','黑体';
+}
+#login, #register{
+	float: right;
 }

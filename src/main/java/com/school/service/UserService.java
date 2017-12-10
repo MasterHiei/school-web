@@ -18,8 +18,8 @@ public class UserService implements UserServiceImpl {
 
     // 添加用户
     @Override
-    public void insertUser(UserEntity userEntity) throws Exception{
-        userDao.insertUser(userEntity);
+    public int insertUser(UserEntity userEntity) throws Exception{
+        return userDao.insertUser(userEntity);
     }
 
     // 删除用户

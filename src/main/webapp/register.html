@@ -22,26 +22,31 @@
     <div class="inputWrapper">
         <div class="logo">用户注册</div>
         <div class="input_form">
-            <div id="login">
+            <div id="registerWrapper">
                 <li class="input-item">
                     <span>用户名：</span>
-                    <input type="text" id="username" name="tuName" class="input" placeholder="请输入用户名">
+                    <input type="text" id="username" name="tuName" class="input" placeholder="请输入用户名...">
                     <span id="count-msg" class="error"></span>
                 </li>
                 <li class="input-item">
                     <span>密　码：</span>
-                    <input type="password" id="password" name="tuPwd" class="input" placeholder="请输入密码">
+                    <input type="password" id="password" name="tuPwd" class="input" placeholder="请输入密码...">
                     <span id="password-msg" class="error"></span>
                 </li>
                 <li class="input-item">
                     <span>确　认：</span>
-                    <input type="password" id="re-password" name="tuPwd" class="input" placeholder="请再次输入密码">
+                    <input type="password" id="re-password" name="tuPwd" class="input" placeholder="请再次输入密码...">
                     <span id="re-password-msg" class="error"></span>
+                </li>
+                <li class="input-item">
+                    <span>住　址：</span>
+                    <input type="text" id="address" name="tuAddress" class="input" placeholder="例：朝阳公寓3栋3501室...">
+                    <span id="address-msg" class="error"></span>
                 </li>
                 <div class="clearfix"></div>
                 <li class="input-sub">
                     <input type="button" id="submit" value="注册" />
-                    <input type="button" id="register" value="登录" />
+                    <input type="button" id="login" value="登录" />
                 </li>
             </div>
         </div>
