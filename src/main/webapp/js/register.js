@@ -9,8 +9,12 @@ $(function(){
 
     // 输入检查
     $('#username').on('blur', function () {
+        // 优先执行格式检查
         isNameValid = checkName();
-        isNameUsed = checkNameUsed();
+
+        if (isNameValid){
+            isNameUsed = checkNameUsed();
+        }
     });
     $('#password').on('blur', function () {
         isPwdValid = checkPassword();
@@ -24,6 +28,7 @@ $(function(){
 
     // 提交用户信息时的处理
     $('#submit').click(function () {
+
         // 触发输入检查
         $('.input').trigger('blur');
 
@@ -84,8 +89,9 @@ function checkName(){
 
 // 检查用户名是否存在
 function checkNameUsed(){
-    var name = $('#username').val(),
-        notUsed = false;
+    var name = JSON.stringify({
+            tuName: $('#username').val()
+        });
 
     $.ajax({
         url: 'userName.do',
@@ -97,17 +103,25 @@ function checkNameUsed(){
             alert('发生错误：' + msg);
         },
         success: function (msg) {
-            if (msg === '1')
-                notUsed = true;
+            if (msg === '1') {
+                $('#hiddenFlg').val('1');
+            }else {
+                $('#hiddenFlg').val('0');
+            }
         }
     });
 
-    if (!notUsed){
+    if ($('#hiddenFlg').val() === '1') {
+        return true;
+    } else if ($('#hiddenFlg').val() === '0')
+    {
         $('#count-msg').html('用户名已存在');
         return false;
+    } else {
+        // 第一次blur事件不会检测到AJAX赋给hiddenFlg的值
+        // 但不影响注册（点击注册按钮时会强制触发第1+α次blur事件）
+        return 'first';
     }
-    $('#count-msg').empty();
-    return true;
 }
 
 // 检查密码
@@ -138,14 +152,13 @@ function reCheckPassword() {
     return true;
 }
 
-// 重复住址
+// 检查住址
 function checkAddress() {
     var address = $('#address').val();
-    console.log(address);
-    if (address == null || address === ''){
-        $('#address-msg').html('地址不能为空');
+    if (address == null || address == ''){
+        $('#address-msg').html('密码不能为空');
         return false;
     }
-    $('#re-password-msg').empty();
+    $('#address-msg').empty();
     return true;
 }

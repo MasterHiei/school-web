@@ -4,7 +4,8 @@
 
     <!-- 添加用户 -->
     <insert id="insertUser" parameterType="com.school.entity.UserEntity">
-        insert into tbl_user values(#{tuName},#{tuPwd},#{tuAddress},#{tuDate},#{tiId},#{tuDetail},#{deleteFlg})
+        insert into tbl_user(tuName, tuPwd, tuAddress, tuDate, tiId, tuDetail, deleteFlg)
+        values(#{tuName},#{tuPwd},#{tuAddress},#{tuDate},#{tiId},#{tuDetail},#{deleteFlg})
     </insert>
 
     <!-- 删除用户 -->

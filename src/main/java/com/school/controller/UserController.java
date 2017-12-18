@@ -118,7 +118,7 @@ public class UserController {
         // 查询单个用户
         UserEntity userEntity = userService.selectOneUser(tuName);
 
-        if (userEntity != null){
+        if (userEntity == null){
             // 正常处理
             msg = "1";
         }else {

@@ -68,12 +68,44 @@ INSERT INTO tbl_user(
         tiId,
         tuDetail
 ) VALUE(
+        'canting2',
+        MD5('123456'),
+        '餐厅地址测试',
+        NOW(),
+        1002,
+        '餐厅测试2'
+);
+
+INSERT INTO tbl_user(
+        tuName,
+        tuPwd,
+        tuAddress,
+        tuDate,
+        tiId,
+        tuDetail
+) VALUE(
         'xuesheng1',
         MD5('123456'),
         '学生地址测试',
         NOW(),
         1003,
         '学生测试1'
+);
+
+INSERT INTO tbl_exhibition(
+        teName,
+        tuId
+) VALUE(
+        '第一食堂',
+        1002
+);
+
+INSERT INTO tbl_exhibition(
+        teName,
+        tuId
+) VALUE(
+        '第五食堂',
+        1003
 );
 
 INSERT INTO tbl_dish(
@@ -85,7 +117,7 @@ INSERT INTO tbl_dish(
         tdDetail
 ) VALUE(
         '辣子鸡丁',
-        '../data/img/lazijiding20171121002',
+        '/img/1002/lazijiding20171101.jpeg',
         1002,
         '6.00',
         NOW(),
@@ -101,9 +133,41 @@ INSERT INTO tbl_dish(
         tdDetail
 ) VALUE(
         '宫保鸡丁',
-        '../data/img/gongbaojiding20171121001',
+        '/img/1002/gongbaojiding20171101.jpeg',
         1002,
         '7.00',
+        NOW(),
+        '菜单测试2'
+);
+
+INSERT INTO tbl_dish(
+        tdName,
+        tdImg,
+        tuId,
+        tdPrice,
+        tdDate,
+        tdDetail
+) VALUE(
+        '辣子鸡丁',
+        '/img/1003/lazijiding20171102.jpeg',
+        1003,
+        '5.80',
+        NOW(),
+        '菜单测试1'
+);
+
+INSERT INTO tbl_dish(
+        tdName,
+        tdImg,
+        tuId,
+        tdPrice,
+        tdDate,
+        tdDetail
+) VALUE(
+        '宫保鸡丁',
+        '/img/1003/gongbaojiding20171102.jpeg',
+        1003,
+        '7.50',
         NOW(),
         '菜单测试2'
 );

@@ -81,3 +81,6 @@ h1{
 #login, #register{
 	float: right;
 }
+#hiddenFlg{
+	display: none;
+}
