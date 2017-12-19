@@ -11,41 +11,40 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service("UserService")
 @Transactional
-public class UserService implements UserServiceImpl {
+public class UserService implements IUserService {
 
     @Autowired
     private UserDao userDao;
 
     // 添加用户
     @Override
-    public int insertUser(UserEntity userEntity) throws Exception{
-        return userDao.insertUser(userEntity);
+    public int InsertUser(UserEntity userEntity) throws Exception{
+        return userDao.InsertUser(userEntity);
     }
 
     // 删除用户
     @Override
-    public void deleteUser(UserEntity userEntity) throws Exception{
-        userDao.deleteUser(userEntity);
+    public int DeleteUser(UserEntity userEntity) throws Exception{
+        return userDao.DeleteUser(userEntity);
     }
 
     // 修改用户
     @Override
     @Transactional
-    public void updateUser(UserEntity userEntity) throws Exception{
-        userDao.updateUser(userEntity);
+    public int UpdateUser(UserEntity userEntity) throws Exception{
+        return userDao.UpdateUser(userEntity);
     }
 
     // 查询单个用户
     @Override
-    public UserEntity selectOneUser(String tuName) throws Exception{
-        UserEntity userEntity = userDao.selectOneUser(tuName);
-        return userEntity;
+    public UserEntity SelectOneUser(UserEntity userEntity) throws Exception{
+        return userDao.SelectOneUser(userEntity);
     }
 
     // 查询全部用户数量
     @Override
-    public int selectUserCount() throws Exception{
-        return userDao.selectUserCount();
+    public int SelectUserCount() throws Exception{
+        return userDao.SelectUserCount();
     }
 
 }

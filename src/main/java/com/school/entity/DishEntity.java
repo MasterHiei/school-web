@@ -181,6 +181,4 @@ public class DishEntity implements Serializable {
         	+",deleteFlg:"+deleteFlg
         +"]";
     }
-    
-
 }

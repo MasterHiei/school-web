@@ -1,8 +1,7 @@
 package com.school.controller;
 
 import com.school.entity.UserEntity;
-import com.school.service.UserService;
-import com.school.service.UserServiceImpl;
+import com.school.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,14 +21,14 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    private UserServiceImpl userService;
+    private IUserService userService;
 
     /**
      * 用户登录
      */
     @RequestMapping("/login")
     @ResponseBody
-    public String selectOneUser(@RequestBody Map map, HttpSession session)
+    public String SelectOneUser(@RequestBody Map map, HttpSession session)
             throws Exception{
 
         // 获取Ajax传递的参数
@@ -38,8 +37,13 @@ public class UserController {
                 // 创建返回值
                 msg;
 
+        // 参数赋值
+        UserEntity params = new UserEntity();
+        params.setTuName(tuName);
+        params.setDeleteFlg(UserEntity.USER_DELETE_0);
+
         // 查询单个用户
-        UserEntity userEntity = userService.selectOneUser(tuName);
+        UserEntity userEntity = userService.SelectOneUser(params);
 
         if (userEntity != null){
             // 密码不匹配时的处理
@@ -70,7 +74,7 @@ public class UserController {
      */
     @RequestMapping("/register")
     @ResponseBody
-    public String insertUser(@RequestBody UserEntity userEntity) throws Exception{
+    public String InsertUser(@RequestBody UserEntity userEntity) throws Exception{
 
         String msg;
 
@@ -87,7 +91,7 @@ public class UserController {
             userEntity.setDeleteFlg(UserEntity.USER_DELETE_0);
 
             // 添加用户
-            int result = userService.insertUser(userEntity);
+            int result = userService.InsertUser(userEntity);
 
             if (result != 0){
                 // 添加成功时的处理
@@ -107,7 +111,7 @@ public class UserController {
      */
     @RequestMapping("/userName")
     @ResponseBody
-    public String selectOneUser(@RequestBody Map map)
+    public String SelectOneUser(@RequestBody Map map)
             throws Exception{
 
         // 获取Ajax传递的参数
@@ -115,8 +119,13 @@ public class UserController {
                 // 创建返回值
                 msg;
 
+        // 参数赋值
+        UserEntity params = new UserEntity();
+        params.setTuName(tuName);
+        params.setDeleteFlg(UserEntity.USER_DELETE_0);
+
         // 查询单个用户
-        UserEntity userEntity = userService.selectOneUser(tuName);
+        UserEntity userEntity = userService.SelectOneUser(params);
 
         if (userEntity == null){
             // 正常处理

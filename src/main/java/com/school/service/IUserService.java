@@ -1,13 +1,11 @@
-package com.school.dao;
+package com.school.service;
 
 import com.school.entity.UserEntity;
-import org.springframework.stereotype.Repository;
 
 /**
- * UserDao
+ * IUserService
  */
-@Repository
-public interface UserDao {
+public interface IUserService {
 
     // 添加用户
     int InsertUser(UserEntity userEntity) throws Exception;

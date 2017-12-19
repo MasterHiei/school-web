@@ -3,24 +3,25 @@
 <mapper namespace="com.school.dao.UserDao">
 
     <!-- 添加用户 -->
-    <insert id="insertUser" parameterType="com.school.entity.UserEntity">
-        insert into tbl_user(tuName, tuPwd, tuAddress, tuDate, tiId, tuDetail, deleteFlg)
-        values(#{tuName},#{tuPwd},#{tuAddress},#{tuDate},#{tiId},#{tuDetail},#{deleteFlg})
+    <insert id="InsertUser" parameterType="com.school.entity.UserEntity">
+        INSERT INTO tbl_user(tuName, tuPwd, tuAddress, tuDate, tiId, tuDetail, deleteFlg)
+        VALUES(#{tuName},#{tuPwd},#{tuAddress},#{tuDate},#{tiId},#{tuDetail},#{deleteFlg})
     </insert>
 
     <!-- 删除用户 -->
-    <update id="deleteUser" parameterType="java.lang.String">
-        update tbl_user set DELETE_FLG=#{deleteFlg} where tuName=#{tuName}
+    <update id="DeleteUser" parameterType="com.school.entity.UserEntity">
+        UPDATE tbl_user SET deleteFlg=#{deleteFlg} WHERE tuName=#{tuName}
     </update>
 
     <!-- 修改用户 -->
-    <update id="updateUser" parameterType="com.school.entity.UserEntity" >
-        update tbl_user set tuName=#{tuName},tuPwd=#{tuPwd},tuAddress=#{tuAddress},tuDetail=#{tuDetail} where tuName=#{tuName}
+    <update id="UpdateUser" parameterType="com.school.entity.UserEntity" >
+        UPDATE tbl_user SET tuName=#{tuName},tuPwd=#{tuPwd},tuAddress=#{tuAddress},tuDetail=#{tuDetail}
+        WHERE tuName=#{tuName}
     </update>
 
     <!-- 查询单个用户 -->
-    <select id="selectOneUser" parameterType="java.lang.String" resultType="com.school.entity.UserEntity">
-        select * from tbl_user where tuName=#{tuName} and deleteFlg='0'
+    <select id="SelectOneUser" parameterType="com.school.entity.UserEntity" resultType="com.school.entity.UserEntity">
+        SELECT * FROM tbl_user WHERE tuName=#{tuName} AND deleteFlg=#{deleteFlg}
     </select>
     <resultMap type="com.school.entity.UserEntity" id="user">
         <id column="tuId" property="tuId" />
@@ -34,8 +35,8 @@
     </resultMap>
 
     <!-- 查询全部用户数量 -->
-    <select id="selectUserCount" resultType="java.lang.Integer">
-        select count(*) from tbl_user
+    <select id="SelectUserCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM tbl_user
     </select>
 
 </mapper>

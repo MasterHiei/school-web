@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.school.dao.DishDao">
+
+    <!-- 添加菜单 -->
+    <insert id="InsertDish" parameterType="com.school.entity.DishEntity">
+        INSERT INtd tbl_Dish(tdName, tdImg, tuId, tdPrice, tdDate, tdDetail, deleteFlg)
+        VALUES(#{tdName},#{tdImg},#{tuId},#{tdPrice},#{tdDate},#{tdDetail},#{deleteFlg})
+    </insert>
+
+    <!-- 删除菜单 -->
+    <update id="DeleteDish" parameterType="com.school.entity.DishEntity">
+        UPDATE tbl_Dish SET DELETE_FLG=#{deleteFlg} WHERE tdId=#{tdId}
+    </update>
+
+    <!-- 更新菜单 -->
+    <update id="UpdateDish" parameterType="com.school.entity.DishEntity" >
+        UPDATE tbl_Dish SET tdName=#{tdName},tdImg=#{tdImg},tdPrice=#{tdPrice},tdDetail=#{tdDetail}
+        WHERE tdId=#{tdId}
+    </update>
+
+    <!-- 查询全部菜单（动态查询） -->
+    <select id="SelectAllDish" parameterType="com.school.entity.DishEntity" resultType="com.school.entity.DishEntity">
+        SELECT * FROM tbl_Dish
+        <trim prefix="WHERE" prefixOverrides="AND |OR |(" suffixOverrides=")">
+            <if test="tdName != null and tdName.length() > 0">
+                (tdName LIKE #{tdName}
+            </if>
+            <if test="tdDetail != null and tdDetail.length > 0">
+                OR tdDetail LIKE #{tdDetail})
+            </if>
+            AND deleteFlg=#{deleteFlg}
+        </trim>
+        GROUP BY tuId;
+    </select>
+
+    <resultMap type="com.school.entity.DishEntity" id="Dish">
+        <id column="tdId" property="tdId" />
+        <result column="tdName" property="tdName"/>
+        <result column="tdImg" property="tdImg"/>
+        <result column="tuId" property="tuId" />
+        <result column="tdPrice" property="tdPrice" />
+        <result column="tdDate" property="tdDate" />
+        <result column="tdDetail" property="tdDetail"/>
+        <result column="deleteFlg" property="deleteFlg"/>
+    </resultMap>
+
+    <!-- 查询全部菜单数量 -->
+    <select id="SelectDishCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM tbl_Dish
+    </select>
+
+</mapper>
