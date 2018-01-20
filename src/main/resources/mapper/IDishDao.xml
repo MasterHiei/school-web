@@ -20,7 +20,7 @@
     </update>
 
     <!-- 查询全部菜单（动态查询） -->
-    <select id="SelectAllDish" resultType="com.school.entity.DishEntity">
+    <select id="SelectAllDish" parameterType="java.util.Map" resultType="com.school.entity.DishEntity">
         SELECT td.*,te.teName FROM tbl_Dish td
         LEFT JOIN tbl_Exhibition te ON td.tuId=te.tuId AND td.deleteFlg = te.deleteFlg
         <trim prefix="WHERE" prefixOverrides="( |OR">
