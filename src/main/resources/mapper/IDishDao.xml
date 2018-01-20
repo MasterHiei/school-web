@@ -20,18 +20,24 @@
     </update>
 
     <!-- 查询全部菜单（动态查询） -->
-    <select id="SelectAllDish" parameterType="com.school.entity.DishEntity" resultType="com.school.entity.DishEntity">
-        SELECT * FROM tbl_Dish
-        <trim prefix="WHERE" prefixOverrides="AND |OR |(" suffixOverrides=")">
+    <select id="SelectAllDish" resultType="com.school.entity.DishEntity">
+        SELECT td.*,te.teName FROM tbl_Dish td
+        LEFT JOIN tbl_Exhibition te ON td.tuId=te.tuId AND td.deleteFlg = te.deleteFlg
+        <trim prefix="WHERE" prefixOverrides="( |OR">
             <if test="tdName != null and tdName.length() > 0">
-                (tdName LIKE #{tdName}
+                (td.tdName like concat(concat('%',#{tdName,jdbcType=VARCHAR}),'%') AND td.deleteFlg=#{deleteFlg})
             </if>
             <if test="tdDetail != null and tdDetail.length > 0">
-                OR tdDetail LIKE #{tdDetail})
+                OR (td.tdDetail like concat(concat('%',#{tdDetail,jdbcType=VARCHAR}),'%') AND td.deleteFlg=#{deleteFlg})
             </if>
-            AND deleteFlg=#{deleteFlg}
+            <if test="tuId != null and tuId > 0">
+                OR (td.tuId=#{tuId,jdbcType=INTEGER} AND td.deleteFlg=#{deleteFlg})
+            </if>
+            <if test="tdName == null and tdDetail == null and tuId == null">
+                td.deleteFlg=#{deleteFlg}
+            </if>
         </trim>
-        GROUP BY tuId;
+        LIMIT #{start,jdbcType=INTEGER},#{rows,jdbcType=INTEGER}
     </select>
 
     <resultMap type="com.school.entity.DishEntity" id="Dish">
@@ -45,9 +51,23 @@
         <result column="deleteFlg" property="deleteFlg"/>
     </resultMap>
 
-    <!-- 查询全部菜单数量 -->
-    <select id="SelectDishCount" resultType="java.lang.Integer">
+    <!-- 查询全部菜单数量（动态查询） -->
+    <select id="SelectDishCount" parameterType="java.util.Map" resultType="java.lang.Integer">
         SELECT count(*) FROM tbl_Dish
+        <trim prefix="WHERE" prefixOverrides="( |OR">
+            <if test="tdName != null and tdName.length() > 0">
+                (tdName like concat(concat('%',#{tdName,jdbcType=VARCHAR}),'%') AND deleteFlg=#{deleteFlg})
+            </if>
+            <if test="tdDetail != null and tdDetail.length > 0">
+                OR (tdDetail like concat(concat('%',#{tdDetail,jdbcType=VARCHAR}),'%') AND deleteFlg=#{deleteFlg})
+            </if>
+            <if test="tuId != null and tuId > 0">
+                OR (tuId=#{tuId,jdbcType=INTEGER} AND deleteFlg=#{deleteFlg})
+            </if>
+            <if test="tdName == null and tdDetail == null and tuId == null">
+                deleteFlg=#{deleteFlg}
+            </if>
+        </trim>
     </select>
 
 </mapper>

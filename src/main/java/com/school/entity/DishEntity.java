@@ -27,6 +27,10 @@ import java.math.BigDecimal;
 public class DishEntity implements Serializable {
     /** Serial UID */
     private static final long serialVersionUID = 1L;
+    /** DISH_DELETE_0 */
+    public static final String DISH_DELETE_0 = "0";
+    /** DISH_DELETE_1 */
+    public static final String DISH_DELETE_1 = "1";
     
     /** tdId  */
     private Long tdId;
@@ -51,7 +55,9 @@ public class DishEntity implements Serializable {
     
     /** deleteFlg  */
     private String deleteFlg;
-    
+
+    /** teName **/
+    private String teName;
 
     /**
      * @return the tdId
@@ -164,6 +170,20 @@ public class DishEntity implements Serializable {
     public void setDeleteFlg(String deleteFlg) {
         this.deleteFlg = deleteFlg;
     }
+
+    /**
+     * @return the teName
+     */
+    public String getTeName() {
+        return this.teName;
+    }
+
+    /**
+     * @param teName the deleteFlg to set
+     */
+    public void setTeName(String teName) {
+        this.teName = teName;
+    }
     
 	/**
      * 覆盖父类toString方法
@@ -179,6 +199,7 @@ public class DishEntity implements Serializable {
         	+",tdDate:"+tdDate
         	+",tdDetail:"+tdDetail
         	+",deleteFlg:"+deleteFlg
+            +",teName:"+teName
         +"]";
     }
 }

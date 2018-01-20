@@ -121,7 +121,7 @@ INSERT INTO tbl_dish(
         1002,
         '6.00',
         NOW(),
-        '菜单测试1'
+        '辣子鸡丁，特色传统菜肴，属川菜系，是四川川东一道著名的江湖风味菜，因缘于歌乐山而故名。'
 );
 
 INSERT INTO tbl_dish(
@@ -137,7 +137,8 @@ INSERT INTO tbl_dish(
         1002,
         '7.00',
         NOW(),
-        '菜单测试2'
+        '宫保鸡丁，是一道闻名中外的特色传统名菜。选用鸡肉为主料，佐以花生米、黄瓜、辣椒等辅料烹制而成。
+        红而不辣、辣而不猛、香辣味浓、肉质滑脆。'
 );
 
 INSERT INTO tbl_dish(
@@ -153,7 +154,7 @@ INSERT INTO tbl_dish(
         1003,
         '5.80',
         NOW(),
-        '菜单测试1'
+        '辣子鸡丁，特色传统菜肴，属川菜系，是四川川东一道著名的江湖风味菜，因缘于歌乐山而故名。'
 );
 
 INSERT INTO tbl_dish(
@@ -169,5 +170,102 @@ INSERT INTO tbl_dish(
         1003,
         '7.50',
         NOW(),
-        '菜单测试2'
+        '宫保鸡丁，是一道闻名中外的特色传统名菜。选用鸡肉为主料，佐以花生米、黄瓜、辣椒等辅料烹制而成。
+        红而不辣、辣而不猛、香辣味浓、肉质滑脆。'
+);
+
+
+
+
+INSERT INTO tbl_dish(
+        tdName,
+        tdImg,
+        tuId,
+        tdPrice,
+        tdDate,
+        tdDetail
+) VALUE(
+        '宫保鸡丁',
+        '/img/1003/gongbaojiding20171102.jpeg',
+        1003,
+        '7.50',
+        NOW(),
+        '宫保鸡丁，是一道闻名中外的特色传统名菜。选用鸡肉为主料，佐以花生米、黄瓜、辣椒等辅料烹制而成。
+        红而不辣、辣而不猛、香辣味浓、肉质滑脆。'
+);
+INSERT INTO tbl_dish(
+        tdName,
+        tdImg,
+        tuId,
+        tdPrice,
+        tdDate,
+        tdDetail
+) VALUE(
+        '宫保鸡丁',
+        '/img/1003/gongbaojiding20171102.jpeg',
+        1002,
+        '7.50',
+        NOW(),
+        '宫保鸡丁，是一道闻名中外的特色传统名菜。选用鸡肉为主料，佐以花生米、黄瓜、辣椒等辅料烹制而成。
+        红而不辣、辣而不猛、香辣味浓、肉质滑脆。'
+);
+INSERT INTO tbl_dish(
+        tdName,
+        tdImg,
+        tuId,
+        tdPrice,
+        tdDate,
+        tdDetail
+) VALUE(
+        '宫保鸡丁',
+        '/img/1003/gongbaojiding20171102.jpeg',
+        1003,
+        '7.50',
+        NOW(),
+        '宫保鸡丁，是一道闻名中外的特色传统名菜。选用鸡肉为主料，佐以花生米、黄瓜、辣椒等辅料烹制而成。
+        红而不辣、辣而不猛、香辣味浓、肉质滑脆。'
+);
+INSERT INTO tbl_dish(
+        tdName,
+        tdImg,
+        tuId,
+        tdPrice,
+        tdDate,
+        tdDetail
+) VALUE(
+        '宫保鸡丁',
+        '/img/1003/gongbaojiding20171102.jpeg',
+        1002,
+        '7.50',
+        NOW(),
+        '宫保鸡丁，是一道闻名中外的特色传统名菜。选用鸡肉为主料，佐以花生米、黄瓜、辣椒等辅料烹制而成。
+        红而不辣、辣而不猛、香辣味浓、肉质滑脆。'
+);INSERT INTO tbl_dish(
+        tdName,
+        tdImg,
+        tuId,
+        tdPrice,
+        tdDate,
+        tdDetail
+) VALUE(
+        '辣子鸡丁',
+        '/img/1002/lazijiding20171101.jpeg',
+        1002,
+        '6.00',
+        NOW(),
+        '辣子鸡丁，特色传统菜肴，属川菜系，是四川川东一道著名的江湖风味菜，因缘于歌乐山而故名。'
+);INSERT INTO tbl_dish(
+        tdName,
+        tdImg,
+        tuId,
+        tdPrice,
+        tdDate,
+        tdDetail
+) VALUE(
+        '辣子鸡丁',
+        '/img/1002/lazijiding20171101.jpeg',
+        1003,
+        '6.00',
+        NOW(),
+        '辣子鸡丁，特色传统菜肴，属川菜系，是四川川东一道著名的江湖风味菜，因缘于歌乐山而故名。'
 );

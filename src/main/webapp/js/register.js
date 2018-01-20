@@ -127,7 +127,7 @@ function checkNameUsed(){
 // 检查密码
 function checkPassword(){
     var password = $('#password').val();
-    if (password == null || password == ''){
+    if (password == null || password === ''){
         $('#password-msg').html('密码不能为空');
         return false;
     }
@@ -155,7 +155,7 @@ function reCheckPassword() {
 // 检查住址
 function checkAddress() {
     var address = $('#address').val();
-    if (address == null || address == ''){
+    if (address == null || address === ''){
         $('#address-msg').html('密码不能为空');
         return false;
     }

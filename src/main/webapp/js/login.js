@@ -47,13 +47,13 @@ function login() {
         },
 		success: function (msg) {
         	// 学生账户登录，跳转至订餐页面
-			if (msg === '1')
-				window.location.href = 'index.html';
+			if (msg === '1'){
+                window.location.href = 'index.html';
+			}
             // 管理账户登录，跳转至后台管理页面
-			else if (msg === '2')
-				window.location.href = 'management.html';
-			else
-				alert(msg);
+			else if (msg === '2'){
+                window.location.href = 'management.html';
+			}
         }
 	})
 }

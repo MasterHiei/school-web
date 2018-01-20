@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * UserService
  */
@@ -39,6 +41,17 @@ public class UserService implements IUserService {
     @Override
     public UserEntity SelectOneUser(UserEntity userEntity) throws Exception{
         return userDao.SelectOneUser(userEntity);
+    }
+
+    // 查询全部用户
+    @Override
+    public List<UserEntity> SelectAllUser(UserEntity userEntity) throws Exception{
+        return userDao.SelectAllUser(userEntity);
+    }
+
+    //查询用户展示名
+    public String SelectExhibitor(long tuId) throws Exception{
+        return userDao.SelectExhibitor(tuId);
     }
 
     // 查询全部用户数量

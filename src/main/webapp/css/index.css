@@ -7,6 +7,18 @@ img, .side-bar .list-group-item {
     border-radius: 3px;
 }
 
+hr {
+    margin: 0 0 14px 0;
+}
+
+.container {
+    max-width: 100%;
+}
+
+#container {
+    max-width: 980px;
+}
+
 .side-bar .list-group-item {
     border: 0;
     margin-bottom: 8px;
@@ -14,6 +26,15 @@ img, .side-bar .list-group-item {
 
 .side-bar .list-group-item.active {
     background-color: lightsteelblue;
+}
+
+.col-sm-7 {
+    text-align: center;
+}
+
+#pagination {
+    margin: 0 0 10px 0;
+    padding: 0;
 }
 
 .menu-list-item {
@@ -47,8 +68,22 @@ span {
     margin-bottom: 14px;
 }
 
+#panel-title-group {
+    margin-bottom: 14px;
+    font-weight: bold;
+}
+
+.search-alert {
+    display: none;
+    text-align: center;
+}
+
 .copyright {
     text-align: center;
     margin-top: 28px;
     color: #777;
+}
+
+#hidden-dataRows {
+    display: none;
 }

@@ -1,16 +1,14 @@
-package com.school.dao;
+package com.school.service;
 
 import com.school.entity.DishEntity;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * DishDao
+ * IDishService
  */
-@Repository
-public interface DishDao {
+public interface IDishService {
 
     // 添加菜单
     int InsertDish(DishEntity dishEntity) throws Exception;

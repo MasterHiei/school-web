@@ -1,5 +1,8 @@
 package com.school.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.school.entity.ExhibitionEntity;
 import com.school.entity.UserEntity;
 import com.school.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -135,5 +140,46 @@ public class UserController {
             msg = "用户名已存在。";
         }
         return msg;
+    }
+
+    /**
+     * 查询所有用户
+     */
+    @RequestMapping("/selectAllUser")
+    @ResponseBody
+    public String SelectAllUser() throws Exception{
+        return "";
+    }
+
+    /**
+     * 查询用户展示名
+     */
+    @RequestMapping("/selectExhibitor")
+    @ResponseBody
+    public String selectExhibitor() throws Exception{
+
+        // 获取所有餐厅用户
+        UserEntity params = new UserEntity();
+        params.setTiId(UserEntity.CANTEEN_PERMISSION);
+        List<UserEntity> userEntityList = userService.SelectAllUser(params);
+
+        // 根据获取到的饭厅用户列表取得其对应的展示名
+        List<ExhibitionEntity> exhibitionEntityList = new ArrayList<>();
+        if (!userEntityList.isEmpty()){
+            for (int i = 0; i < userEntityList.size(); i++){
+                long tuId = userEntityList.get(i).getTuId();
+                // 获取展示名
+                String teName = userService.SelectExhibitor(tuId);
+                // 将展示名存入List集合中
+                ExhibitionEntity exhibitionEntity = new ExhibitionEntity();
+                exhibitionEntity.setTuId(tuId);
+                exhibitionEntity.setTeName(teName);
+                exhibitionEntityList.add(exhibitionEntity);
+            }
+            // 将List类型转换成Json字符串，并作为返回值传递给前台
+            String jsonStr = com.alibaba.fastjson.JSONObject.toJSONString(exhibitionEntityList);
+            return jsonStr;
+        }
+        return "";
     }
 }

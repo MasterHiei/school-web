@@ -14,7 +14,7 @@
     </update>
 
     <!-- 修改用户 -->
-    <update id="UpdateUser" parameterType="com.school.entity.UserEntity" >
+    <update id="UpdateUser" parameterType="com.school.entity.UserEntity">
         UPDATE tbl_user SET tuName=#{tuName},tuPwd=#{tuPwd},tuAddress=#{tuAddress},tuDetail=#{tuDetail}
         WHERE tuName=#{tuName}
     </update>
@@ -23,6 +23,7 @@
     <select id="SelectOneUser" parameterType="com.school.entity.UserEntity" resultType="com.school.entity.UserEntity">
         SELECT * FROM tbl_user WHERE tuName=#{tuName} AND deleteFlg=#{deleteFlg}
     </select>
+    
     <resultMap type="com.school.entity.UserEntity" id="user">
         <id column="tuId" property="tuId" />
         <result column="tuName" property="tuName"/>
@@ -36,7 +37,36 @@
 
     <!-- 查询全部用户数量 -->
     <select id="SelectUserCount" resultType="java.lang.Integer">
-        SELECT count(*) FROM tbl_user
+        SELECT count(*) FROM tbl_user WHERE deleteFlg=0
+    </select>
+
+    <!-- 查询全部用户（动态查询） -->
+    <select id="SelectAllUser" parameterType="com.school.entity.UserEntity" resultType="com.school.entity.UserEntity">
+        SELECT * FROM tbl_user
+        <where>
+            <if test="tuId != null and tuId != 0">
+                tuId=#{tuId}
+            </if>
+            <if test="tuName != null and tuId.length > 0">
+                AND tuName=#{tuName}
+            </if>
+            <if test="tiId != null and tiId != 0">
+                AND tiId=#{tiId}
+            </if>
+            AND deleteFlg=0
+        </where>
+    </select>
+
+    <!-- 查询用户展示名称 -->
+    <select id="SelectExhibitor" parameterType="java.lang.Long" resultType="java.lang.String">
+        SELECT teName FROM tbl_exhibition
+        <where>
+            <if test="tuId != null and tuId != 0">
+                tuId=#{tuId}
+            </if>
+            AND deleteFlg=0
+        </where>
+        ORDER BY teId
     </select>
 
 </mapper>

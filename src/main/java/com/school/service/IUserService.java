@@ -2,6 +2,8 @@ package com.school.service;
 
 import com.school.entity.UserEntity;
 
+import java.util.List;
+
 /**
  * IUserService
  */
@@ -15,6 +17,10 @@ public interface IUserService {
     int UpdateUser(UserEntity userEntity) throws Exception;
     // 查询单个用户
     UserEntity SelectOneUser(UserEntity userEntity) throws Exception;
+    //查询全部用户
+    List<UserEntity> SelectAllUser(UserEntity userEntity) throws Exception;
+    //查询用户展示名
+    String SelectExhibitor(long tuId) throws Exception;
     // 查询全部用户数量
     int SelectUserCount() throws Exception;
 

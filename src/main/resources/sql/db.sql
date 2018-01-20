@@ -22,7 +22,7 @@ CREATE TABLE tbl_identity(
 -- TABLE USER --
 CREATE TABLE tbl_user(
   tuId INT AUTO_INCREMENT,
-  tuName VARCHAR(50) NOT NULL,
+  tuName VARCHAR(50) NOT NULL UNIQUE COMMENT '唯一键：用户名',
   tuPwd VARCHAR(32) NOT NULL,
   tuAddress VARCHAR(100) NOT NULL,
   tuDate DATE NOT NULL,
