@@ -22,7 +22,7 @@ import java.sql.Timestamp;
 public class UserEntity implements Serializable {
     /** Serial UID */
     private static final long serialVersionUID = 1L;
-    /** USER_SESSION */
+    /** USER_SESSION(tuName) */
     public static final String USER_SESSION = "user_Session";
     /** ADMIN_PERMISSION */
     public static final long ADMIN_PERMISSION = 1001;

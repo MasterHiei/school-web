@@ -4,12 +4,11 @@ $(function () {
     // 当页面加载完毕时执行的操作
     $(document).ready(
         function () {
-            // 此处应有session验证
-
-            // 动态显示餐厅列表
+            // 1.session验证
+            validUserSession();
+            // 2.动态显示餐厅列表
             getProviderList();
-
-            // 动态显示菜单列表
+            // 3.动态显示菜单列表（分页处理）
             var params = '{type:"all"}';
             showPagination(params);
         }
@@ -58,6 +57,26 @@ $(function () {
         showPagination(params);
     })
 });
+
+////////////////////////////////
+//         session验证         //
+////////////////////////////////
+function validUserSession() {
+    // 向后台发送请求
+    $.ajax({
+        url: 'validSession.do',
+        type: 'POST',
+        error: function (msg) {
+            $('#search-alert-error').show();
+        },
+        success: function (msg) {
+            if (msg === 'loginOut'){
+                alert('由于您尚未登录或登录信息已过期，请重新登录。');
+                window.location.href = 'login.html';
+            }
+        }
+    })
+}
 
 ////////////////////////////////
 // 请求后台获取数据库中的餐厅信息 //
@@ -197,9 +216,6 @@ function showPagination(searchParams) {
     if (dataRows > 0){
         // 总页数
         var pageCount = Math.ceil(dataRows / 4);
-        if (pageCount === 0){
-            pageCount = 1;
-        }
         // 分页处理
         $('#pagination').twbsPagination('destroy');
         $('#pagination').twbsPagination({

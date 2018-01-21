@@ -27,10 +27,18 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+    <!-- HandlerInterceptor拦截器配置 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/*"/>
+            <bean class="com.school.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <!-- 定义跳转的文件的前后缀 ，视图模式配置 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/"/>
-        <property name="suffix" value=".jsp"/>
+        <property name="suffix" value=".html"/>
     </bean>
 
     <!-- 文件上传配置 -->

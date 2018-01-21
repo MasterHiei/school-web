@@ -58,15 +58,18 @@ function register() {
         dataType: 'json',
         data: userData,
         contentType: 'application/json;charset=utf8',
-        error: function (msg) {
-            alert('发生错误：' + msg);
+        error: function () {
+            alert('非常抱歉，由于系统发生未知错误，请您稍后重试。');
         },
         success: function (msg) {
             // 注册成功，跳转至登录页面
-            if (msg === '1')
+            if (msg === 'success'){
+                alert('注册成功。');
                 window.location.href = 'login.html';
-            else
+            }
+            else {
                 alert(msg);
+            }
         }
     })
 }
@@ -100,10 +103,10 @@ function checkNameUsed(){
         data: name,
         contentType: 'application/json;charset=utf8',
         error: function (msg) {
-            alert('发生错误：' + msg);
+            alert('非常抱歉，由于系统发生未知错误，请您稍后重试。');
         },
         success: function (msg) {
-            if (msg === '1') {
+            if (msg === 'unused') {
                 $('#hiddenFlg').val('1');
             }else {
                 $('#hiddenFlg').val('0');
@@ -156,7 +159,7 @@ function reCheckPassword() {
 function checkAddress() {
     var address = $('#address').val();
     if (address == null || address === ''){
-        $('#address-msg').html('密码不能为空');
+        $('#address-msg').html('住址不能为空');
         return false;
     }
     $('#address-msg').empty();

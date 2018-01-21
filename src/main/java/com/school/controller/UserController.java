@@ -1,7 +1,5 @@
 package com.school.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.school.entity.ExhibitionEntity;
 import com.school.entity.UserEntity;
 import com.school.service.IUserService;
@@ -27,6 +25,14 @@ public class UserController {
 
     @Autowired
     private IUserService userService;
+
+    /**
+     * 用户session验证
+     * 仅用于接收前台发送的请求，以便于拦截器进行拦截
+     */
+    @RequestMapping("/validSession")
+    @ResponseBody
+    public void ValidSession(){}
 
     /**
      * 用户登录
@@ -58,14 +64,14 @@ public class UserController {
             }
             // 正常处理
             // step1. 保存查询到的用户信息
-            session.setAttribute(UserEntity.USER_SESSION, userEntity);
+            session.setAttribute(UserEntity.USER_SESSION, userEntity.getTuName());
             // step2. 判断用户身份
             if (userEntity.getTiId() == UserEntity.STUDENT_PERMISSION){
                 // 学生账户登录
-                msg = "1";
+                msg = "student";
             }else {
                 // 管理账户登录
-                msg = "2";
+                msg = "admin";
             }
         }else {
             // 用户名不匹配时的处理
@@ -100,7 +106,7 @@ public class UserController {
 
             if (result != 0){
                 // 添加成功时的处理
-                msg = "1";
+                msg = "success";
             }else {
                 // 添加失败时的处理
                 msg = "创建账户时发生未知错误，请重新注册。";
@@ -134,7 +140,7 @@ public class UserController {
 
         if (userEntity == null){
             // 正常处理
-            msg = "1";
+            msg = "unused";
         }else {
             // 用户名已被使用时的处理
             msg = "用户名已存在。";
