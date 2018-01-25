@@ -27,12 +27,27 @@ public class UserController {
     private IUserService userService;
 
     /**
-     * 用户session验证
-     * 仅用于接收前台发送的请求，以便于拦截器进行拦截
+     * 登录处理
+     * 拦截器验证通过后才会执行
      */
     @RequestMapping("/validSession")
     @ResponseBody
-    public void ValidSession(){}
+    public String ValidSession(HttpSession session) {
+        // 返回session值（tuName）
+        String msg = "session:" + session.getAttribute(UserEntity.USER_SESSION).toString();
+        return msg;
+    }
+
+    /**
+     * 注销处理
+     */
+    @RequestMapping("/logout")
+    @ResponseBody
+    public String Logout(HttpSession session) {
+        // 销毁session
+        session.invalidate();
+        return "logout";
+    }
 
     /**
      * 用户登录

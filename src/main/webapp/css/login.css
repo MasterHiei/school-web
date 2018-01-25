@@ -81,6 +81,11 @@ h1{
 #login, #register{
 	float: right;
 }
+.forgotPwd{
+	margin-top: 10px;
+	font-size: smaller;
+	text-decoration: underline;
+}
 #hiddenFlg{
 	display: none;
 }

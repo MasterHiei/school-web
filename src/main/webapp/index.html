@@ -14,7 +14,9 @@
 
 </head>
 <body>
+    <!-- 页面 -->
     <div class="container" id="container">
+        <!-- 导航栏 -->
         <div class="navbar navbar-default">
             <div class="container">
                 <a href="index.html" class="navbar-header">
@@ -25,12 +27,13 @@
                     <li><a href="#">我的购物车</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="login.html">登录</a></li>
-                    <li><a href="register.html">注册</a></li>
+                    <li><a href="#" id="user-label"></a></li>
+                    <li><a href="#" id="logout">注销</a></li>
                 </ul>
             </div>
         </div>
 
+        <!-- 展示区标题 -->
         <div class="container" id="panel-title-group">
             <div class="row">
                 <div class="col-sm-2">
@@ -51,27 +54,33 @@
             </div>
         </div>
 
+        <!-- 总展示区 -->
         <div class="container">
             <hr>
             <div class="row">
                 <div class="col-sm-2">
+                    <!-- 餐厅展示区 -->
                     <div class="list-group side-bar" id="providerList">
                     </div>
                 </div>
                 <div class="col-sm-7 col-sm">
+                    <!-- 提示框 -->
                     <div id="search-alert-null" class="alert alert-warning search-alert" role="alert">
                         对不起，未找到符合条件的菜品信息。
                         <button class="close">&times;</button>
                     </div>
                     <div id="search-alert-error" class="alert alert-danger search-alert">
-                        对不起，由于系统发生未知错误，请稍后重试。
+                        对不起，由于系统发生未知错误，请刷新页面后重试。
                         <button class="close">&times;</button>
                     </div>
-                        <ul id="pagination" class="pagination-sm"></ul>
+                    <!-- 分页 -->
+                    <ul id="pagination" class="pagination-sm"></ul>
+                    <!-- 菜单展示区 -->
                     <div class="menu-list" id="menu-list">
                     </div>
                 </div>
                 <div class="col-sm-2">
+                    <!-- 菜单查询区 -->
                     <div class="input-group">
                         <input type="text" class="form-control" id="searchDishInput" placeholder="...">
                         <span class="input-group-btn">
@@ -82,10 +91,13 @@
             </div>
         </div>
 
+        <!-- 页脚 -->
         <footer>
             <p class="copyright">&copy; Anonymous University</p>
         </footer>
     </div>
+
+    <!-- 隐藏域 -->
     <div id="hidden-dataRows" value="0"></div>
     <div id="hidden-searchParams" value=""></div>
 </body>

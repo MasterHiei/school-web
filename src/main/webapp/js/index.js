@@ -1,19 +1,21 @@
 $(function () {
     'use strict';
 
-    // 当页面加载完毕时执行的操作
+    ////////////////////////////////////////////////////
+    // 页面初始化时执行的操作
     $(document).ready(
         function () {
-            // 1.session验证
+            // 1.登录验证处理
             validUserSession();
-            // 2.动态显示餐厅列表
+            // 2.显示餐厅列表
             getProviderList();
-            // 3.动态显示菜单列表（分页处理）
+            // 3.显示菜单列表（分页处理）
             var params = '{type:"all"}';
             showPagination(params);
         }
     );
 
+    ////////////////////////////////////////////////////
     // 食堂选择按钮触发事件
     $('#providerList').on('click', 'button', function () {
         // 获取查询条件
@@ -25,6 +27,7 @@ $(function () {
         showPagination(params);
     });
 
+    ////////////////////////////////////////////////////
     // 菜单查询按钮触发事件
     $('#searchDishBtn').click(function () {
         var val = $.trim($('#searchDishInput').val()),
@@ -50,29 +53,55 @@ $(function () {
         $('#searchDishBtn').trigger('click');
     });
 
+    ////////////////////////////////////////////////////
     // 点X关闭提示框并恢复初始状态（查询全部数据）
     $('.close').click(function () {
         $(this).parent().hide();
         var params = '{type:"all"}';
         showPagination(params);
+    });
+
+    //////////////////////////////////////////////////////
+    // 用户注销超链接点击事件
+    $('#logout').click(function () {
+        // 注销处理
+        logout();
+    });
+
+    //////////////////////////////////////////////////////
+    // 禁止用户名超链接点击事件
+    $('#user-label').click(function (e) {
+        e.preventDefault();
     })
 });
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////
 //         session验证         //
 ////////////////////////////////
 function validUserSession() {
-    // 向后台发送请求
+    // 向后台提交请求以触发过滤器
     $.ajax({
+        async: false,
         url: 'validSession.do',
         type: 'POST',
-        error: function (msg) {
+        error: function () {
             $('#search-alert-error').show();
         },
         success: function (msg) {
-            if (msg === 'loginOut'){
+            // 返回值处理
+            var reg = new RegExp('"', 'g'),
+                data = msg.replace(reg, '').split(':');
+            // 判断返回值
+            if (data[0] === 'loginOut'){
+                // 验证失败，提示并跳转至登录页面
                 alert('由于您尚未登录或登录信息已过期，请重新登录。');
                 window.location.href = 'login.html';
+            }
+            else if (data[0] === 'session'){
+                // 验证通过，将用户名展示在页面
+                $('#user-label').text(data[1]);
             }
         }
     })
@@ -190,7 +219,7 @@ function showDishList(dishList) {
             '                   <span class="info-summary">¥ ' + dishList[i].tdPrice + '</span>\n' +
             '                   <span class="info-summary">' + dishList[i].teName + '</span>\n' +
             '               </div>\n' +
-            '               <button type="button" class="btn btn-info btn-xs btn-block">\n' +
+            '               <button type="button" class="btn btn-info btn-xs btn-block cart-btn">\n' +
             '                   添加至购物车\n' +
             '               </button>\n' +
             '           </div>\n' +
@@ -250,5 +279,26 @@ function showPagination(searchParams) {
         $('#menu-list').empty();
         $('.search-alert').hide();
         $('#search-alert-null').show();
+    }
+}
+
+////////////////////////////////
+//          用户注销处理       //
+////////////////////////////////
+function logout() {
+    var isLogout = confirm('确认退出当前账户吗？');
+    if (isLogout){
+        // 确认注销
+        $.post('logout.do', function (msg) {
+            var reg = new RegExp('"', 'g'),
+                data = msg.replace(reg, '');
+            if (data === 'logout'){
+                window.location.href = 'login.html';
+            }else {
+                $('#search-alert-error').show();
+            }
+        }).error(function () {
+            $('#search-alert-error').show();
+        });
     }
 }
