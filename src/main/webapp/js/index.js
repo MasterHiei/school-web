@@ -222,9 +222,9 @@ function showDishList(dishList) {
             '           <div class="col-xs-7">\n' +
             '               <div class="title">' + dishList[i].tdName + '</div>\n' +
             '               <div class="info">\n' +
-            '                   <span class="info-summary dish-detail">' + dishList[i].tdDetail + '</span>\n' +
-            '                   <span class="info-summary dish-price">¥ ' + dishList[i].tdPrice + '</span>\n' +
-            '                   <span class="info-summary dish-provider">' + dishList[i].teName + '</span>\n' +
+            '                   <span class="info-summary">' + dishList[i].tdDetail + '</span>\n' +
+            '                   <span class="info-summary">¥ ' + dishList[i].tdPrice + '</span>\n' +
+            '                   <span class="info-summary">' + dishList[i].teName + '</span>\n' +
             '               </div>\n' +
             '               <button type="button" class="btn btn-info btn-xs btn-block">\n' +
             '                   添加至购物车\n' +
