@@ -35,7 +35,7 @@ $(function(){
 
 	// 忘记密码
 	$('#forgotPwd-btn').click(function (e) {
-		alert('非常抱歉，请您重新注册新的账号并妥善保管。');
+		alert('非常抱歉，请您直接联系管理员或重新注册新的账号。');
 		return false;
     })
 });
