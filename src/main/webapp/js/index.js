@@ -62,6 +62,12 @@ $(function () {
     });
 
     //////////////////////////////////////////////////////
+    // 添加至购物车按钮点击事件
+    $('.menu-list').on('click', 'button', function () {
+        addCart(this, event);
+    });
+
+    //////////////////////////////////////////////////////
     // 用户注销超链接点击事件
     $('#logout').click(function () {
         // 注销处理
@@ -70,6 +76,7 @@ $(function () {
 
     //////////////////////////////////////////////////////
     // 禁止用户名超链接点击事件
+    // TODO:用户信息页面
     $('#user-label').click(function (e) {
         e.preventDefault();
     })
@@ -215,11 +222,11 @@ function showDishList(dishList) {
             '           <div class="col-xs-7">\n' +
             '               <div class="title">' + dishList[i].tdName + '</div>\n' +
             '               <div class="info">\n' +
-            '                   <span class="info-summary">' + dishList[i].tdDetail + '</span>\n' +
-            '                   <span class="info-summary">¥ ' + dishList[i].tdPrice + '</span>\n' +
-            '                   <span class="info-summary">' + dishList[i].teName + '</span>\n' +
+            '                   <span class="info-summary dish-detail">' + dishList[i].tdDetail + '</span>\n' +
+            '                   <span class="info-summary dish-price">¥ ' + dishList[i].tdPrice + '</span>\n' +
+            '                   <span class="info-summary dish-provider">' + dishList[i].teName + '</span>\n' +
             '               </div>\n' +
-            '               <button type="button" class="btn btn-info btn-xs btn-block cart-btn">\n' +
+            '               <button type="button" class="btn btn-info btn-xs btn-block">\n' +
             '                   添加至购物车\n' +
             '               </button>\n' +
             '           </div>\n' +
@@ -280,6 +287,73 @@ function showPagination(searchParams) {
         $('.search-alert').hide();
         $('#search-alert-null').show();
     }
+}
+
+////////////////////////////////
+//         添加购物车处理       //
+////////////////////////////////
+function addCart(obj, event) {
+    // 获取图片链接
+    var img = $(obj).parent().prev('div').children('img').attr('src');
+    // 获取商品ID
+    var tdId = $(obj).parent().parent().attr('id');
+    // 创建移动对象
+    var flyer = $('<img id="flyer" src="'+ img +'" />');
+    // 获取终点坐标
+    var offset = $('#mycart').offset();
+    // 定义fly
+    flyer.fly({
+        start: {
+            // 起点坐标
+            left: event.pageX - 30,
+            top: event.pageY - 20
+        },
+        end: {
+            // 终点坐标
+            left: offset.left,
+            top: offset.top,
+            // 终点时大小
+            width: 25,
+            height: 20
+        },
+        onEnd: function () {
+            // 将对象信息提交到后台保存
+            saveCartInfo(tdId);
+            // 购物车显示数量+1
+            addCartNum();
+            // 销毁移动对象
+            flyer.remove();
+        }
+    });
+}
+
+////////////////////////////////
+//         保存购物车信息       //
+////////////////////////////////
+function saveCartInfo(tdId) {
+    var params = JSON.stringify({
+        tdId: tdId
+    });
+    $.ajax({
+        async: false,
+        url: 'saveCart.do',
+        type: 'POST',
+        data: params,
+        dataType: 'json',
+        contentType: 'application/json;charset=utf8',
+        error: function () {
+            $('#search-alert-error').show();
+        }
+    });
+}
+
+////////////////////////////////
+//         购物车数量更新       //
+////////////////////////////////
+function addCartNum() {
+    var text = $('#mycart').text().toString(),
+        num = text.substring(text.indexOf('(') + 1, text.indexOf(')'));
+    $('#mycart').text('我的购物车('+ (parseInt(num) + 1) +')');
 }
 
 ////////////////////////////////
