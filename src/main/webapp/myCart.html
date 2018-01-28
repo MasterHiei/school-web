@@ -1,10 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园订餐系统</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/mycart.css" />
+
+    <script type="text/javascript" src="js/src/jquery.min.js"></script>
+    <script type="text/javascript" src="js/src/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/src/jquery.twbsPagination.min.js"></script>
+    <script type="text/javascript" src="js/mycart.js"></script>
+
 </head>
 <body>
+    <!-- 页面 -->
+    <div id="container" class="container">
+        <!-- 导航栏 -->
+        <div class="navbar navbar-default">
+            <div class="container">
+                <a href="index.html" class="navbar-header">
+                    <div class="navbar-brand">校园订餐</div>
+                </a>
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">首页</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" id="user-label"></a></li>
+                    <li><a href="#" id="logout">注销</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 展示面板 -->
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3>我的购物车</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table" id="cart-table">
+                    <th class="text-left"><input type="checkbox" class="checklist"/> 全选</th>
+                    <th class="text-center">商品</th>
+                    <th class="text-center">价格</th>
+                    <th class="text-center">库存</th>
+                    <th class="text-center">数量</th>
+                    <th class="text-center">操作</th>
+                    <tr>
+                        <td class="text-left"><input type="checkbox" class="checklist-item"/></td>
+                        <td class="text-left">
+                            <img src="img/1002/gongbaojiding20171101.jpeg"/>
+                            辣子鸡丁
+                        </td>
+                        <td class="text-center">¥3.00</td>
+                        <td class="text-center">有货</td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-xs">&minus;</button>
+                            <input type="text" id="num-input">
+                            <button type="button" class="btn btn-xs">&plus;</button>
+                        </td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-xs" id="item-delete">删除</button>
+                        </td>
+                    </tr>
+                </table>
+                <div class="container" id="cart-info">
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-8"></div>
+                        <div class="col-sm-4">
+                            <ul class="list-inline text-right">
+                                <li>共</li>
+                                <li id="sum-num">1</li>
+                                <li>件商品</li>
+                                <li>合计：</li>
+                                <li>¥3.00</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <ul class="list-inline">
+                                <li>
+                                    <button class="btn btn-info">删除选中商品</button>
+                                </li>
+                                <li>
+                                    <button class="btn btn-info">继续购买商品</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4">
+                            <ul class="list-inline text-right">
+                                <li>应付金额：</li>
+                                <li>¥3.00</li>
+                                <li><button class="btn btn-danger">确认购买</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <footer>
+            <p class="copyright">&copy; Anonymous University</p>
+        </footer>
+    </div>
 
 </body>
 </html>

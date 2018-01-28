@@ -1,0 +1,61 @@
+/*
+* 首尾样式
+*/
+.container {
+    max-width: 100%;
+}
+
+#container {
+    max-width: 980px;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 28px;
+    color: #777;
+}
+
+/*
+* 页面样式
+*/
+h3 {
+    font-size: large;
+    margin: 0;
+}
+
+img {
+    max-height: 72px;
+    max-width: 54px;
+}
+
+hr ul {
+    margin-bottom: 0;
+}
+
+td {
+    min-height: 50px;
+}
+
+.label {
+    font-size: 100%;
+}
+
+.panel {
+    margin-top: 72px;
+}
+
+#num-input {
+    max-width: 30px;
+}
+
+#sum-num {
+    color: red;
+}
+
+#item-delete {
+    color: mediumblue;
+}
+
+#cart-info {
+    padding: 0;
+}

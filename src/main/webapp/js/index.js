@@ -209,12 +209,9 @@ function getDishList(params) {
 //        动态显示菜单列表      //
 ////////////////////////////////
 function showDishList(dishList) {
-    var htmlStr = '',
-        isValuable;
-
+    var htmlStr = '';
+    // 生成html代码
     for (var i in dishList) {
-        isValuable = true;
-        // 生成html代码
         htmlStr += '<div class="menu-list-item clearfix" id="' + dishList[i].tdId + '">\n' +
             '           <div class="col-xs-5">\n' +
             '               <img src="' + dishList[i].tdImg + '" alt="辣子鸡丁">\n' +
@@ -234,12 +231,7 @@ function showDishList(dishList) {
             '       <hr>' +
             '       <split>';
     }
-
-    if (!isValuable){
-        return '';
-    }else {
-        return htmlStr;
-    }
+    return htmlStr;
 }
 
 ////////////////////////////////
@@ -298,7 +290,7 @@ function addCart(obj, event) {
     // 获取商品ID
     var tdId = $(obj).parent().parent().attr('id');
     // 创建移动对象
-    var flyer = $('<img id="flyer" src="'+ img +'" />');
+    var flyer = $('<img class="fly" src="'+ img +'" />');
     // 获取终点坐标
     var offset = $('#mycart').offset();
     // 定义fly
