@@ -54,8 +54,13 @@ td {
 
 #item-delete {
     color: mediumblue;
+    font-size: 14px;
 }
 
-#cart-info {
+#cart-total {
     padding: 0;
+}
+
+.checkbox-list {
+    line-height: 36px;
 }

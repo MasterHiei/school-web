@@ -28,7 +28,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         else {
             // 否则验证session中的登录信息
             HttpSession session = request.getSession();
-            Object userSession = session.getAttribute(UserEntity.USER_SESSION);
+            Object userSession = session.getAttribute(UserEntity.USER_SESSION_NAME);
             if (userSession != null){
                 // session存在，允许访问
                 return true;

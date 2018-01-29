@@ -324,14 +324,14 @@ function addCart(obj, event) {
 ////////////////////////////////
 function saveCartInfo(tdId) {
     var params = JSON.stringify({
-        tdId: tdId
+        tdId: tdId,
+        tdNum: 1
     });
     $.ajax({
         async: false,
         url: 'saveCart.do',
         type: 'POST',
         data: params,
-        dataType: 'json',
         contentType: 'application/json;charset=utf8',
         error: function () {
             $('#search-alert-error').show();

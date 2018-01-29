@@ -15,7 +15,7 @@ public class CartEntity implements Serializable {
     private Long tcId;
 
     /** tcNum  */
-    private String tcNum;
+    private int tcNum;
 
     /** tdId  */
     private Long tdId;
@@ -41,14 +41,14 @@ public class CartEntity implements Serializable {
     /**
      * @return the tcNum
      */
-    public String getTcNum() {
+    public int getTcNum() {
         return this.tcNum;
     }
 
     /**
-     * @param tcNum the tdName to set
+     * @param tcNum the tcNum to set
      */
-    public void setTcNum(String tcNum) {
+    public void setTcNum(int tcNum) {
         this.tcNum = tcNum;
     }
 

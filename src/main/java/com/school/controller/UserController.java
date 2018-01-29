@@ -34,7 +34,7 @@ public class UserController {
     @ResponseBody
     public String ValidSession(HttpSession session) {
         // 返回session值（tuName）
-        String msg = "session:" + session.getAttribute(UserEntity.USER_SESSION).toString();
+        String msg = "session:" + session.getAttribute(UserEntity.USER_SESSION_NAME).toString();
         return msg;
     }
 
@@ -79,7 +79,8 @@ public class UserController {
             }
             // 正常处理
             // step1. 保存查询到的用户信息
-            session.setAttribute(UserEntity.USER_SESSION, userEntity.getTuName());
+            session.setAttribute(UserEntity.USER_SESSION_ID, userEntity.getTuId());
+            session.setAttribute(UserEntity.USER_SESSION_NAME, userEntity.getTuName());
             // step2. 判断用户身份
             if (userEntity.getTiId() == UserEntity.STUDENT_PERMISSION){
                 // 学生账户登录
@@ -119,7 +120,7 @@ public class UserController {
             // 添加用户
             int result = userService.InsertUser(userEntity);
 
-            if (result != 0){
+            if (result == 1){
                 // 添加成功时的处理
                 msg = "success";
             }else {

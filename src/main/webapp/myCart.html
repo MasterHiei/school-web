@@ -31,22 +31,25 @@
                 </ul>
             </div>
         </div>
-
         <!-- 展示面板 -->
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h3>我的购物车</h3>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" id="cart-info">
                 <table class="table" id="cart-table">
                     <th class="text-left"><input type="checkbox" class="checklist"/> 全选</th>
-                    <th class="text-center">商品</th>
+                    <th class="text-left">商品</th>
                     <th class="text-center">价格</th>
                     <th class="text-center">库存</th>
                     <th class="text-center">数量</th>
                     <th class="text-center">操作</th>
                     <tr>
-                        <td class="text-left"><input type="checkbox" class="checklist-item"/></td>
+                        <td class="text-left">
+                            <div class="checkbox-list">
+                                <input type="checkbox" class="checklist-item"/>
+                            </div>
+                        </td>
                         <td class="text-left">
                             <img src="img/1002/gongbaojiding20171101.jpeg"/>
                             辣子鸡丁
@@ -63,7 +66,7 @@
                         </td>
                     </tr>
                 </table>
-                <div class="container" id="cart-info">
+                <div class="container" id="cart-total">
                     <hr>
                     <div class="row">
                         <div class="col-sm-8"></div>
@@ -100,7 +103,6 @@
                 </div>
             </div>
         </div>
-
         <!-- 页脚 -->
         <footer>
             <p class="copyright">&copy; Anonymous University</p>

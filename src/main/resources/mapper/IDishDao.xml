@@ -4,7 +4,7 @@
 
     <!-- 添加菜单 -->
     <insert id="InsertDish" parameterType="com.school.entity.DishEntity">
-        INSERT INtd tbl_Dish(tdName, tdImg, tuId, tdPrice, tdDate, tdDetail, deleteFlg)
+        INSERT INTO tbl_Dish(tdName, tdImg, tuId, tdPrice, tdDate, tdDetail, deleteFlg)
         VALUES(#{tdName},#{tdImg},#{tuId},#{tdPrice},#{tdDate},#{tdDetail},#{deleteFlg})
     </insert>
 
@@ -33,7 +33,10 @@
             <if test="tuId != null and tuId > 0">
                 OR (td.tuId=#{tuId,jdbcType=INTEGER} AND td.deleteFlg=#{deleteFlg})
             </if>
-            <if test="tdName == null and tdDetail == null and tuId == null">
+            <if test="tdId != null and tdId > 0">
+                OR (td.tdId=#{tdId,jdbcType=INTEGER} AND td.deleteFlg=#{deleteFlg})
+            </if>
+            <if test="tdName == null and tdDetail == null and tuId == null and tdId == null">
                 td.deleteFlg=#{deleteFlg}
             </if>
         </trim>
