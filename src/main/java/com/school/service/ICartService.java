@@ -18,6 +18,12 @@ public interface ICartService {
     // 更新菜单
     int UpdateCart(Map map) throws Exception;
 
-    // 查询全部菜单到（动态查询）
+    /**
+     * 查询用户的所有购物车信息
+     * @param map 查询条件
+     *            exp.
+     *            param = {用户ID: tuId, 菜单ID: tdId}
+     * @return List<CartEntity> 购物车信息集合
+     **/
     List<CartEntity> SelectAllCart(Map map) throws Exception;
 }

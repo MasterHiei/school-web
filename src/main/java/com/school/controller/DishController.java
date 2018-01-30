@@ -18,7 +18,7 @@ import java.util.Map;
  * DishController
  */
 @Controller
-public class DishController {
+public class DishController extends BaseController {
 
     @Autowired
     private IDishService dishService;

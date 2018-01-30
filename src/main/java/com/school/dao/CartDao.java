@@ -22,6 +22,6 @@ public interface CartDao {
     // 更新菜单
     int UpdateCart(Map map) throws Exception;
 
-    // 查询全部菜单（动态查询）
+    // 查询全部菜单（单一用户的所有菜单信息）
     List<CartEntity> SelectAllCart(Map map) throws Exception;
 }

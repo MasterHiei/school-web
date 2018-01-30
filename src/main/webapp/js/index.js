@@ -109,6 +109,8 @@ function validUserSession() {
             else if (data[0] === 'session'){
                 // 验证通过，将用户名展示在页面
                 $('#user-label').text(data[1]);
+                // 获取用户购物车信息，显示其数量
+                getCartNum();
             }
         }
     })
@@ -312,7 +314,7 @@ function addCart(obj, event) {
             // 将对象信息提交到后台保存
             saveCartInfo(tdId);
             // 购物车显示数量+1
-            addCartNum();
+            addCartNum(1);
             // 销毁移动对象
             flyer.remove();
         }
@@ -342,10 +344,24 @@ function saveCartInfo(tdId) {
 ////////////////////////////////
 //         购物车数量更新       //
 ////////////////////////////////
-function addCartNum() {
+function addCartNum(plusNum) {
     var text = $('#mycart').text().toString(),
         num = text.substring(text.indexOf('(') + 1, text.indexOf(')'));
-    $('#mycart').text('我的购物车('+ (parseInt(num) + 1) +')');
+    $('#mycart').text('我的购物车('+ (parseInt(num) + parseInt(plusNum)) +')');
+}
+
+////////////////////////////////
+//         购物车数量获取       //
+////////////////////////////////
+function getCartNum() {
+    $.ajax({
+        async: false,
+        url: 'selectCartNum.do',
+        type: 'POST',
+        success: function (data) {
+            addCartNum(data);
+        }
+    })
 }
 
 ////////////////////////////////
