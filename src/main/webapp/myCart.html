@@ -31,6 +31,11 @@
                 </ul>
             </div>
         </div>
+
+        <div class="container text-center">
+            <span class="label label-default">欢迎使用本订餐系统！</span>
+        </div>
+
         <!-- 展示面板 -->
         <div class="panel panel-info">
             <div class="panel-heading">
@@ -38,33 +43,23 @@
             </div>
             <div class="panel-body" id="cart-info">
                 <table class="table" id="cart-table">
-                    <th class="text-left"><input type="checkbox" class="checklist"/> 全选</th>
-                    <th class="text-left">商品</th>
-                    <th class="text-center">价格</th>
-                    <th class="text-center">库存</th>
-                    <th class="text-center">数量</th>
-                    <th class="text-center">操作</th>
+                    <thead>
+                        <tr>
+                            <th class="text-left"><input type="checkbox" class="checklist" placeholder=""/> 全选</th>
+                            <th class="text-left">商品</th>
+                            <th class="text-center">价格</th>
+                            <th class="text-center">库存</th>
+                            <th class="text-center">数量</th>
+                            <th class="text-center">操作</th>
+                        </tr>
+                    </thead>
                     <tr>
-                        <td class="text-left">
-                            <div class="checkbox-list">
-                                <input type="checkbox" class="checklist-item"/>
-                            </div>
-                        </td>
-                        <td class="text-left">
-                            <img src="img/1002/gongbaojiding20171101.jpeg"/>
-                            辣子鸡丁
-                        </td>
-                        <td class="text-center">¥3.00</td>
-                        <td class="text-center">有货</td>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-xs">&minus;</button>
-                            <input type="text" id="num-input">
-                            <button type="button" class="btn btn-xs">&plus;</button>
-                        </td>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-xs" id="item-delete">删除</button>
-                        </td>
+                        <div id="cart-alert-null" class="alert alert-warning search-alert" role="alert">
+                            您的购物车中没有商品。
+                        </div>
                     </tr>
+                    <tbody id="cart-table-body">
+                    </tbody>
                 </table>
                 <div class="container" id="cart-total">
                     <hr>
@@ -73,10 +68,10 @@
                         <div class="col-sm-4">
                             <ul class="list-inline text-right">
                                 <li>共</li>
-                                <li id="sum-num">1</li>
+                                <li id="sum-num"></li>
                                 <li>件商品</li>
                                 <li>合计：</li>
-                                <li>¥3.00</li>
+                                <li id="sum-price"></li>
                             </ul>
                         </div>
                     </div>
@@ -85,7 +80,7 @@
                         <div class="col-sm-8">
                             <ul class="list-inline">
                                 <li>
-                                    <button class="btn btn-info">删除选中商品</button>
+                                    <button class="btn btn-info" id="all-delete">删除选中商品</button>
                                 </li>
                                 <li>
                                     <button class="btn btn-info">继续购买商品</button>
@@ -95,8 +90,8 @@
                         <div class="col-sm-4">
                             <ul class="list-inline text-right">
                                 <li>应付金额：</li>
-                                <li>¥3.00</li>
-                                <li><button class="btn btn-danger">确认购买</button></li>
+                                <li id="sum-pay"></li>
+                                <li><button class="btn btn-danger" id="buy-btn">确认购买</button></li>
                             </ul>
                         </div>
                     </div>

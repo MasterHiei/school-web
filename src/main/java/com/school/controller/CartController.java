@@ -54,7 +54,6 @@ public class CartController extends BaseController {
         return count;
     }
 
-
     /**
      * 保存用户购物车信息
      */
@@ -63,7 +62,8 @@ public class CartController extends BaseController {
     public void InsertCart(@RequestBody Map map, HttpSession session)
             throws Exception {
 
-        String LoggerTitle = "InsertCart（保存用户信息）：";
+        // 日志标题
+        String loggerTtile = "InsertCart（保存用户购物车信息）：";
 
         // 获取Ajax传递的参数
         Long tdId = Long.parseLong(map.get("tdId").toString());
@@ -84,7 +84,7 @@ public class CartController extends BaseController {
             carParams.put("tcNum", cartEntityList.get(0).getTcNum() + tdNum);
             int result = cartService.UpdateCart(carParams);
             if (result < 1) {
-                LOGGER.error(LoggerTitle + "购物车信息更新失败。");
+                LOGGER.error(loggerTtile + "购物车信息更新失败。");
             }
         }
         else {
@@ -107,12 +107,41 @@ public class CartController extends BaseController {
                 // 添加购物车信息
                 int result = cartService.InsertCart(cartEntity);
                 if (result < 1) {
-                    LOGGER.error(LoggerTitle + "购物车信息添加失败。");
+                    LOGGER.error(loggerTtile + "购物车信息添加失败。");
                 }
             }
             else {
-                LOGGER.error(LoggerTitle + "菜单信息查询失败。");
+                LOGGER.error(loggerTtile + "菜单信息查询失败。");
             }
         }
+    }
+
+    /**
+     * 获取用户购物车信息
+     */
+    @RequestMapping("/selectAllCart")
+    @ResponseBody
+    public String SelectAllCart(HttpSession session) {
+
+        // 日志标题
+        String loggerTitle = "SelectAllCart（查询用户购物车信息）：";
+
+        // 获取session中的用户ID
+        Long tuId = Long.parseLong(session.getAttribute(UserEntity.USER_SESSION_ID).toString());
+
+        // 创建参数
+        Map params = new HashMap();
+        params.put("tuId", tuId);
+        
+        String jsonStr = "";
+        try{
+            // 执行查询
+            List<CartEntity> cartEntityList = cartService.SelectAllCart(params);
+
+            jsonStr = com.alibaba.fastjson.JSONObject.toJSONString(cartEntityList);
+        }catch (Exception e){
+            LOGGER.error(loggerTitle + "获取购物车信息失败。");
+        }
+        return jsonStr;
     }
 }

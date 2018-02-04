@@ -8,20 +8,24 @@
 
     <!-- 查询购物车 -->
     <select id="SelectAllCart" parameterType="java.util.Map" resultType="com.school.entity.CartEntity">
-        SELECT * FROM tbl_cart
+        SELECT TC.*, TD.tdName, TD.tdImg, TD.tdPrice,
+            CASE TD.deleteFlg WHEN '0' THEN '有货' WHEN '1' THEN '无货' END AS tdStock
+        FROM tbl_Cart TC
+        LEFT JOIN tbl_Dish TD ON TC.tdId = TD.tdId
         <where>
             <if test="tuId != null and tuId > 0">
-                tuId=#{tuId,jdbcType=INTEGER}
+                TC.tuId=#{tuId,jdbcType=INTEGER}
             </if>
             <if test="tdId != null and tdId > 0">
-                AND tdId=#{tdId,jdbcType=INTEGER}
+                AND TC.tdId=#{tdId,jdbcType=INTEGER}
             </if>
         </where>
+        ORDER BY TC.tuId, TC.tdId
     </select>
 
     <!-- 更新购物车 -->
     <update id="UpdateCart" parameterType="java.util.Map">
-        UPDATE tbl_cart SET tcNum=#{tcNum,jdbcType=INTEGER}
+        UPDATE tbl_Cart SET tcNum=#{tcNum,jdbcType=INTEGER}
         WHERE tuId=#{tuId,jdbcType=INTEGER} AND tdId=#{tdId,jdbcType=INTEGER}
     </update>
 </mapper>

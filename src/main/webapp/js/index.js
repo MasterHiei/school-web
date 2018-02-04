@@ -3,17 +3,15 @@ $(function () {
 
     ////////////////////////////////////////////////////
     // 页面初始化时执行的操作
-    $(document).ready(
-        function () {
-            // 1.登录验证处理
-            validUserSession();
-            // 2.显示餐厅列表
-            getProviderList();
-            // 3.显示菜单列表（分页处理）
-            var params = '{type:"all"}';
-            showPagination(params);
-        }
-    );
+    $(document).ready(function () {
+        // 1.登录验证处理
+        validUserSession();
+        // 2.显示餐厅列表
+        getProviderList();
+        // 3.显示菜单列表（分页处理）
+        var params = '{type:"all"}';
+        showPagination(params);
+    });
 
     ////////////////////////////////////////////////////
     // 食堂选择按钮触发事件
@@ -85,7 +83,7 @@ $(function () {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////
-//         session验证         //
+//         用户登录验证        //
 ////////////////////////////////
 function validUserSession() {
     // 向后台提交请求以触发过滤器
@@ -94,7 +92,7 @@ function validUserSession() {
         url: 'validSession.do',
         type: 'POST',
         error: function () {
-            $('#search-alert-error').show();
+            window.location = 'error.html';
         },
         success: function (msg) {
             // 返回值处理
@@ -102,9 +100,8 @@ function validUserSession() {
                 data = msg.replace(reg, '').split(':');
             // 判断返回值
             if (data[0] === 'loginOut'){
-                // 验证失败，提示并跳转至登录页面
-                alert('由于您尚未登录或登录信息已过期，请重新登录。');
-                window.location.href = 'login.html';
+                // 验证失败，提示并跳转至错误页面
+                window.location.href = 'error.html';
             }
             else if (data[0] === 'session'){
                 // 验证通过，将用户名展示在页面
@@ -130,11 +127,9 @@ function getProviderList() {
             $('#search-alert-error').show();
         },
         success: function (data) {
-            if (data.length > 0){
-                var obj = $.parseJSON(data);
-                // 将获取到的餐厅信息显示到页面
-                showProviderName(obj);
-            }
+            var obj = $.parseJSON(data);
+            // 将获取到的餐厅信息显示到页面
+            showProviderName(obj);
         }
     })
 }
@@ -336,7 +331,7 @@ function saveCartInfo(tdId) {
         data: params,
         contentType: 'application/json;charset=utf8',
         error: function () {
-            $('#search-alert-error').show();
+            window.location = 'error.html';
         }
     });
 }
@@ -377,10 +372,10 @@ function logout() {
             if (data === 'logout'){
                 window.location.href = 'login.html';
             }else {
-                $('#search-alert-error').show();
+                window.location = 'error.html';
             }
         }).error(function () {
-            $('#search-alert-error').show();
+            window.location = 'error.html';
         });
     }
 }

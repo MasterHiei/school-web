@@ -36,12 +36,22 @@ td {
     min-height: 50px;
 }
 
+tbody {
+    overflow-y: scroll;
+}
+
 .label {
     font-size: 100%;
 }
 
+.label.label-default {
+    display: inline-block;
+    width: 50%;
+    font-size: large;
+}
+
 .panel {
-    margin-top: 72px;
+    margin-top: 20px;
 }
 
 #num-input {
@@ -63,4 +73,8 @@ td {
 
 .checkbox-list {
     line-height: 36px;
+}
+
+#cart-alert-null {
+    display: none;
 }

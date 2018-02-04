@@ -23,6 +23,17 @@ public class CartEntity implements Serializable {
     /** tuId  */
     private Long tuId;
 
+    /** tdName  */
+    private String tdName;
+
+    /** tdImg  */
+    private String tdImg;
+
+    /** tdPrice  */
+    private String tdPrice;
+
+    /** tdStock  */
+    private String tdStock;
 
     /**
      * @return the tcId
@@ -81,6 +92,62 @@ public class CartEntity implements Serializable {
     }
 
     /**
+     * @return the tdName
+     */
+    public String getTdName() {
+        return tdName;
+    }
+
+    /**
+     * @param tdName the tdName to set
+     */
+    public void setTdName(String tdName) {
+        this.tdName = tdName;
+    }
+
+    /**
+     * @return the tdImg
+     */
+    public String getTdImg() {
+        return tdImg;
+    }
+
+    /**
+     * @param tdImg the tdImg to set
+     */
+    public void setTdImg(String tdImg) {
+        this.tdImg = tdImg;
+    }
+
+    /**
+     * @return the tdPrice
+     */
+    public String getTdPrice() {
+        return this.tdPrice;
+    }
+
+    /**
+     * @param tdPrice the tdPrice to set
+     */
+    public void setTdPrice(String tdPrice) {
+        this.tdPrice = tdPrice;
+    }
+
+    /**
+     * @return the tdStock
+     */
+    public String getTdStock() {
+        return tdStock;
+    }
+
+    /**
+     * @param tdStock the tdStock to set
+     */
+    public void setTdStock(String tdStock) {
+        this.tdStock = tdStock;
+    }
+
+    /**
      * 覆盖父类toString方法
      */
     @Override
@@ -90,6 +157,10 @@ public class CartEntity implements Serializable {
                 +",tcNum:"+tcNum
                 +",tdId:"+tdId
                 +",tcId:"+tuId
+                +",tdName:"+tdName
+                +",tdImg:"+tdImg
+                +",tdPrice:"+tdPrice
+                +",tdStock:"+tdStock
                 +"]";
     }
 }
