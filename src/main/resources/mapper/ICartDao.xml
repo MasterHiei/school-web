@@ -19,6 +19,9 @@
             <if test="tdId != null and tdId > 0">
                 AND TC.tdId=#{tdId,jdbcType=INTEGER}
             </if>
+            <if test="tcId != null and tcId > 0">
+                AND tcId=#{tcId,jdbcType=INTEGER}
+            </if>
         </where>
         ORDER BY TC.tuId, TC.tdId
     </select>
@@ -26,6 +29,21 @@
     <!-- 更新购物车 -->
     <update id="UpdateCart" parameterType="java.util.Map">
         UPDATE tbl_Cart SET tcNum=#{tcNum,jdbcType=INTEGER}
-        WHERE tuId=#{tuId,jdbcType=INTEGER} AND tdId=#{tdId,jdbcType=INTEGER}
+        <where>
+            <if test="tuId != null and tuId > 0">
+                tuId=#{tuId,jdbcType=INTEGER}
+            </if>
+            <if test="tdId != null and tdId > 0">
+                AND tdId=#{tdId,jdbcType=INTEGER}
+            </if>
+            <if test="tcId != null and tcId > 0">
+                AND tcId=#{tcId,jdbcType=INTEGER}
+            </if>
+        </where>
     </update>
+
+    <!-- 删除购物车 -->
+    <delete id="DeleteCart" parameterType="java.lang.Long">
+        DELETE FROM tbl_Cart WHERE tcId=#{tcId,jdbcType=INTEGER}
+    </delete>
 </mapper>

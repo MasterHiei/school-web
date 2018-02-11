@@ -308,8 +308,6 @@ function addCart(obj, event) {
         onEnd: function () {
             // 将对象信息提交到后台保存
             saveCartInfo(tdId);
-            // 购物车显示数量+1
-            addCartNum(1);
             // 销毁移动对象
             flyer.remove();
         }
@@ -332,6 +330,17 @@ function saveCartInfo(tdId) {
         contentType: 'application/json;charset=utf8',
         error: function () {
             window.location = 'error.html';
+        },
+        success: function (msg) {
+            var reg = new RegExp('"', 'g'),
+                data = msg.replace(reg, '');
+            if (data === 'true') {
+                // 购物车显示数量+1
+                addCartNum(1);
+            }
+            else if (data === 'false') {
+                window.location = 'error.html';
+            }
         }
     });
 }

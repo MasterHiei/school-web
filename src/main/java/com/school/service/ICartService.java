@@ -15,7 +15,14 @@ public interface ICartService {
     // 删除菜单
     int DeleteCart(Long tcId) throws Exception;
 
-    // 更新菜单
+    /**
+     * 更新用户的购物车信息（数量）
+     * @param map 更新条件
+     *            exp.
+     *            param = {用户ID: tuId, 菜单ID: tdId}
+     *                      or {购物车ID: tcId}
+     * @return int 执行结果
+     **/
     int UpdateCart(Map map) throws Exception;
 
     /**
@@ -23,6 +30,7 @@ public interface ICartService {
      * @param map 查询条件
      *            exp.
      *            param = {用户ID: tuId, 菜单ID: tdId}
+     *                      or {购物车ID: tcId}
      * @return List<CartEntity> 购物车信息集合
      **/
     List<CartEntity> SelectAllCart(Map map) throws Exception;

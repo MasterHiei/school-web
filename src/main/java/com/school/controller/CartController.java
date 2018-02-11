@@ -59,11 +59,11 @@ public class CartController extends BaseController {
      */
     @RequestMapping("/saveCart")
     @ResponseBody
-    public void InsertCart(@RequestBody Map map, HttpSession session)
+    public String InsertCart(@RequestBody Map map, HttpSession session)
             throws Exception {
 
         // 日志标题
-        String loggerTtile = "InsertCart（保存用户购物车信息）：";
+        String loggerTitle = "InsertCart（保存用户购物车信息）：";
 
         // 获取Ajax传递的参数
         Long tdId = Long.parseLong(map.get("tdId").toString());
@@ -84,7 +84,8 @@ public class CartController extends BaseController {
             carParams.put("tcNum", cartEntityList.get(0).getTcNum() + tdNum);
             int result = cartService.UpdateCart(carParams);
             if (result < 1) {
-                LOGGER.error(loggerTtile + "购物车信息更新失败。");
+                LOGGER.error(loggerTitle + "购物车信息更新失败。");
+                return "false";
             }
         }
         else {
@@ -107,13 +108,16 @@ public class CartController extends BaseController {
                 // 添加购物车信息
                 int result = cartService.InsertCart(cartEntity);
                 if (result < 1) {
-                    LOGGER.error(loggerTtile + "购物车信息添加失败。");
+                    LOGGER.error(loggerTitle + "购物车信息添加失败。");
+                    return "false";
                 }
             }
             else {
-                LOGGER.error(loggerTtile + "菜单信息查询失败。");
+                LOGGER.error(loggerTitle + "菜单信息查询失败。");
+                return "false";
             }
         }
+        return "true";
     }
 
     /**
@@ -134,14 +138,63 @@ public class CartController extends BaseController {
         params.put("tuId", tuId);
         
         String jsonStr = "";
-        try{
+        try {
             // 执行查询
             List<CartEntity> cartEntityList = cartService.SelectAllCart(params);
 
             jsonStr = com.alibaba.fastjson.JSONObject.toJSONString(cartEntityList);
-        }catch (Exception e){
+        }
+        catch (Exception e) {
             LOGGER.error(loggerTitle + "获取购物车信息失败。");
         }
         return jsonStr;
+    }
+
+    /**
+     * 更新用户购物车信息
+     */
+    @RequestMapping("/updateCart")
+    @ResponseBody
+    public String UpdateCart(@RequestBody Map map)
+            throws Exception {
+
+        // 日志标题
+        String loggerTitle = "UpdateCart（更新用户购物车信息）：";
+
+        // 获取Ajax传递的参数
+        Long tcId = Long.parseLong(map.get("tcId").toString());
+        int tcNum = Integer.parseInt(map.get("tcNum").toString());
+
+        // 创建参数
+        Map params = new HashMap();
+        params.put("tcId", tcId);
+
+        List<CartEntity> cartEntityList = cartService.SelectAllCart(params);
+
+        if (!cartEntityList.isEmpty()) {
+            if (tcNum > 0) {
+                // 参数补正
+                params.put("tcNum", tcNum);
+                // 更新数量
+                int result = cartService.UpdateCart(params);
+                if (result < 1) {
+                    LOGGER.error(loggerTitle + "更新购物车信息失败。");
+                    return "false";
+                }
+            }
+            else {
+                // 删除购物车信息
+                int result = cartService.DeleteCart(tcId);
+                if (result < 1) {
+                    LOGGER.error(loggerTitle + "删除购物车信息失败。");
+                    return "false";
+                }
+            }
+        }
+        else {
+            LOGGER.error(loggerTitle + "获取购物车信息失败。");
+            return "false";
+        }
+        return "true";
     }
 }

@@ -10,7 +10,42 @@ $(function () {
         getCartInfo();
     });
 
+    ////////////////////////////////////////////////////
+    // 选中全选框后选中所有复选框
+    $('#checklist').click(function () {
+        var isCheck = $(this).prop('checked');
+        checkAll(isCheck);
+    });
 
+    ////////////////////////////////////////////////////
+    // 根据复选框状态选择全选框
+    $('#cart-table-body').on('click', '.checklist-item', function () {
+        changeAllCheck();
+    });
+
+    ////////////////////////////////////////////////////
+    // 减少订购数量
+    $('#cart-table-body').on('click', '.btn-minus', function () {
+        var tcId = $(this).parent().parent().attr('id');
+        var totalNum = parseInt($(this).next('.number-input').val()) - 1;
+        updateCartNum(tcId, totalNum, this);
+    });
+
+    ////////////////////////////////////////////////////
+    // 增加订购数量
+    $('#cart-table-body').on('click', '.btn-plus', function () {
+        var tcId = $(this).parent().parent().attr('id');
+        var totalNum = parseInt($(this).prev('.number-input').val()) + 1;
+        updateCartNum(tcId, totalNum, this);
+    });
+
+    ////////////////////////////////////////////////////
+    // 输入框直接更改订购数量
+    $('#cart-table-body').on('change', '.number-input', function () {
+        var tcId = $(this).parent().parent().attr('id');
+        var totalNum = parseInt($(this).val());
+        updateCartNum(tcId, totalNum, this);
+    });
 
     //////////////////////////////////////////////////////
     // 用户注销超链接点击事件
@@ -79,6 +114,8 @@ function getCartInfo() {
             $('#cart-table-body').empty();
             // 显示购物车信息
             $('#cart-table-body').append(htmlStr);
+            // 显示总数量和总金额
+            changeNumAndMoney();
         }
     })
 }
@@ -88,17 +125,10 @@ function getCartInfo() {
 ////////////////////////////////
 function showCartList(cartList) {
     var htmlStr = '',
-        stockNum = 0,
-        dishSum = 0,
-        priceArray = [];
+        stockNum = 0;
 
     // 生成html代码
     for (var i in cartList) {
-        // 计算总金额
-        var dishPrice = cartList[i].tdPrice * cartList[i].tcNum;
-        priceArray[i] = parseFloat(dishPrice).toFixed(2);
-        // 计算总数量
-        dishSum += parseInt(cartList[i].tcNum);
         // 判断是否有可购买的订单
         if (cartList[i].tdStock === '有货'){
             stockNum++;
@@ -106,7 +136,7 @@ function showCartList(cartList) {
         // 生成html代码
         htmlStr += '             <tr id="' + cartList[i].tcId + '">\n' +
             '                        <td class="text-left">\n' +
-            '                            <div class="checkbox-list">\n' +
+            '                            <div>\n' +
             '                                <input type="checkbox" class="checklist-item"/>\n' +
             '                            </div>\n' +
             '                        </td>\n' +
@@ -114,21 +144,23 @@ function showCartList(cartList) {
             '                            <img src="' + cartList[i].tdImg + '"/>\n' +
             '                            ' + cartList[i].tdName + '\n' +
             '                        </td>\n' +
-            '                        <td class="text-center">¥' + cartList[i].tdPrice + '</td>\n' +
+            '                        <td class="text-center price-input">¥' + cartList[i].tdPrice + '</td>\n' +
             '                        <td class="text-center">' + cartList[i].tdStock + '</td>\n' +
             '                        <td class="text-center">\n' +
-            '                            <button type="button" class="btn btn-xs">&minus;</button>\n' +
-            '                            <input type="text" class="text-center" id="num-input"' +
-            '                               disabled="true" value="' + cartList[i].tcNum + '">\n' +
-            '                            <button type="button" class="btn btn-xs">&plus;</button>\n' +
+            '                            <button type="button" class="btn btn-xs btn-minus">&minus;</button>\n' +
+            '                            <input onkeyup="if(this.value.length===1){this.value=this.value.replace(/[^1-9]/g,\'\')}' +
+            '                                   else{this.value=this.value.replace(/\\D/g,\'\')}" ' +
+            '                               onafterpaste="if(this.value.length===1){this.value=this.value.replace(/[^1-9]/g,\'\')}' +
+            '                                   else{this.value=this.value.replace(/\\D/g,\'\')}" ' +
+            '                               type="text" class="text-center number-input" ' +
+            '                               value="' + cartList[i].tcNum + '">\n' +
+            '                            <button type="button" class="btn btn-xs btn-plus">&plus;</button>\n' +
             '                        </td>\n' +
             '                        <td class="text-center">\n' +
             '                            <button type="button" class="btn btn-xs" id="item-delete">删除</button>\n' +
             '                        </td>\n' +
             '                    </tr>';
     }
-    // 显示总数量和金额
-    showNumAndMoney(dishSum, priceArray);
     // 根据在库状态修改提示和按钮状态
     if (stockNum > 0) {
         $('#cart-alert-null').hide();
@@ -141,17 +173,108 @@ function showCartList(cartList) {
 }
 
 ////////////////////////////////
-//       显示金额及数量信息     //
+//         选中所有复选框       //
 ////////////////////////////////
-function showNumAndMoney(dishSum, priceArray) {
-    var totalPrice = '0';
+function checkAll(isCheck) {
+    var checklist = $('#cart-table-body').find('.checklist-item');
+    checklist.prop('checked', isCheck);
+}
 
-    for (var i = 0; i < priceArray.length; i++) {
-        totalPrice = parseFloat(totalPrice) + parseFloat(priceArray[i]);
+////////////////////////////////
+//     根据复选框改变全选框     //
+////////////////////////////////
+function changeAllCheck() {
+    var checkedNum = 0,
+        checkListNum = 0;
+    $('.checklist-item').each(function () {
+        if ($(this).prop('checked')) {
+            checkedNum++;
+        }
+        checkListNum++;
+    });
+    if (checkListNum === checkedNum) {
+        $('#checklist').prop('checked', true);
+    }else {
+        $('#checklist').prop('checked', false);
+    }
+}
+
+////////////////////////////////
+//         更新商品数量         //
+////////////////////////////////
+function updateCartNum(tcId, totalNum, obj) {
+    var params = JSON.stringify({
+        tcId: tcId,
+        tcNum: totalNum
+    });
+
+    $.ajax({
+        async: false,
+        url: 'updateCart.do',
+        data: params,
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json;charset=utf8',
+        error : function () {
+            window.location = "error.html";
+        },
+        success: function (msg) {
+            var reg = new RegExp('"', 'g'),
+                data = msg.replace(reg, '');
+            if (data === 'true') {
+                if (totalNum > 0) {
+                    // 变更购物车数量
+                    $(obj).parent().find('.number-input').val(totalNum);
+                    // 变更总数量和总金额
+                    changeNumAndMoney();
+                }
+                else {
+                    // 删除该购物车信息
+                    $(obj).parent().parent().remove();
+                    // 变更总数量和总金额
+                    changeNumAndMoney();
+                }
+            }
+            else if (data === 'false') {
+                window.location = 'error.html';
+            }
+        }
+    })
+}
+
+////////////////////////////////
+//       变更金额及数量信息     //
+////////////////////////////////
+function changeNumAndMoney() {
+    var priceArray = [],
+        numberArray = [],
+        totalPrice = '0',
+        totalNum = 0;
+
+    // 获取所有价格
+    $('.price-input').each(function () {
+        priceArray.push(parseFloat($(this).text().substring(1)));
+    });
+
+    // 获取所有数量
+    $('.number-input').each(function () {
+        numberArray.push(parseInt($(this).val()));
+    });
+
+    // 计算总价格
+    for (var i in priceArray) {
+        totalPrice = parseFloat(totalPrice) + (parseFloat(priceArray[i]) * parseFloat(numberArray[i]));
     }
 
+    // 计算总数量
+    for (var j in numberArray) {
+        totalNum = totalNum + parseInt(numberArray[j]);
+    }
+
+    $('#sum-price, #sum-pay').empty();
     $('#sum-price, #sum-pay').append('¥' + parseFloat(totalPrice).toFixed(2));
-    $('#sum-num').append(dishSum);
+    $('#sum-num').empty();
+    $('#sum-num').append(totalNum);
 }
 
 ////////////////////////////////
