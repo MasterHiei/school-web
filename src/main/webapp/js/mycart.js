@@ -4,9 +4,7 @@ $(function () {
     ////////////////////////////////////////////////////
     // 页面初始化时执行的操作
     $(document).ready(function () {
-        // 1.登录验证处理
-        validUserSession();
-        // 2.获取并显示购物车信息
+        // 获取并显示购物车信息
         getCartInfo();
     });
 
@@ -26,7 +24,7 @@ $(function () {
     ////////////////////////////////////////////////////
     // 减少订购数量
     $('#cart-table-body').on('click', '.btn-minus', function () {
-        var tcId = $(this).parent().parent().attr('id');
+        var tcId = $(this).parents('tr').attr('id');
         var totalNum = parseInt($(this).next('.number-input').val()) - 1;
         updateCartNum(tcId, totalNum, this);
     });
@@ -34,7 +32,7 @@ $(function () {
     ////////////////////////////////////////////////////
     // 增加订购数量
     $('#cart-table-body').on('click', '.btn-plus', function () {
-        var tcId = $(this).parent().parent().attr('id');
+        var tcId = $(this).parents('tr').attr('id');
         var totalNum = parseInt($(this).prev('.number-input').val()) + 1;
         updateCartNum(tcId, totalNum, this);
     });
@@ -42,16 +40,69 @@ $(function () {
     ////////////////////////////////////////////////////
     // 输入框直接更改订购数量
     $('#cart-table-body').on('change', '.number-input', function () {
-        var tcId = $(this).parent().parent().attr('id');
+        var tcId = $(this).parents('tr').attr('id');
         var totalNum = parseInt($(this).val());
         updateCartNum(tcId, totalNum, this);
     });
 
-    //////////////////////////////////////////////////////
-    // 用户注销超链接点击事件
-    $('#logout').click(function () {
-        // 注销处理
-        logout();
+    ////////////////////////////////////////////////////
+    // 点击删除该商品
+    $('#cart-table-body').on('click', '.btn-delete', function () {
+        var tcId = $(this).parents('tr').attr('id'),
+            objArray = [this];
+        // 删除处理
+        deleteCart(tcId, objArray);
+    });
+
+    ////////////////////////////////////////////////////
+    // 删除所有被选中的商品
+    $('#all-delete').click(function () {
+        var tcIdStr = '',
+            objArray = [];
+        // 获取被选中的购物车的ID
+        $('.checklist-item').each(function () {
+            if ($(this).prop('checked')) {
+                tcIdStr += $(this).parents('tr').attr('id') + ',';
+                objArray.push(this);
+            }
+        });
+        if (objArray.length > 0) {
+            // 删除处理
+            deleteCart(tcIdStr, objArray);
+        }
+    });
+
+    ////////////////////////////////////////////////////
+    // 订单确认点击事件
+    $('#buy-btn').click(function () {
+        // 检查是否存在显示为无货的商品
+        var isStock = 0;
+        $('.stock-input').each(function () {
+            if ($(this).text() === '无货') {
+                isStock = -1;
+            }
+            else {
+                isStock = 1;
+            }
+        });
+        if (isStock === 1) {
+            if (confirm('确认购买吗？')) {
+                // 订单处理
+                buyCart();
+            }
+        }
+        else if (isStock === -1) {
+            alert('对不起，您的订单中存在已售完的商品。\r\n请删除该商品后再进行购买。');
+        }
+        else if (isStock === 0) {
+            alert('当前购物车中无任何可购买的商品。请确认后再购买。');
+        }
+    });
+
+    ////////////////////////////////////////////////////
+    // 继续购买按钮点击事件
+    $('#go-index').click(function () {
+        window.location.href = 'index.html';
     });
 
     //////////////////////////////////////////////////////
@@ -64,35 +115,6 @@ $(function () {
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////
-//         用户登录验证        //
-////////////////////////////////
-function validUserSession() {
-    // 向后台提交请求以触发过滤器
-    $.ajax({
-        async: false,
-        url: 'validSession.do',
-        type: 'POST',
-        error: function () {
-            window.location.href = 'error.html';
-        },
-        success: function (msg) {
-            // 返回值处理
-            var reg = new RegExp('"', 'g'),
-                data = msg.replace(reg, '').split(':');
-            // 判断返回值
-            if (data[0] === 'loginOut'){
-                // 验证失败，提示并跳转至错误页面
-                window.location.href = 'error.html';
-            }
-            else if (data[0] === 'session'){
-                // 验证通过，将用户名展示在页面
-                $('#user-label').text(data[1]);
-            }
-        }
-    })
-}
 
 ////////////////////////////////
 //         获取购物车信息       //
@@ -130,11 +152,9 @@ function showCartList(cartList) {
     // 生成html代码
     for (var i in cartList) {
         // 判断是否有可购买的订单
-        if (cartList[i].tdStock === '有货'){
-            stockNum++;
-        }
+        stockNum++;
         // 生成html代码
-        htmlStr += '             <tr id="' + cartList[i].tcId + '">\n' +
+        htmlStr += '             <tr class="cartList-item" id="' + cartList[i].tcId + '">\n' +
             '                        <td class="text-left">\n' +
             '                            <div>\n' +
             '                                <input type="checkbox" class="checklist-item"/>\n' +
@@ -145,7 +165,7 @@ function showCartList(cartList) {
             '                            ' + cartList[i].tdName + '\n' +
             '                        </td>\n' +
             '                        <td class="text-center price-input">¥' + cartList[i].tdPrice + '</td>\n' +
-            '                        <td class="text-center">' + cartList[i].tdStock + '</td>\n' +
+            '                        <td class="text-center stock-input">' + cartList[i].tdStock + '</td>\n' +
             '                        <td class="text-center">\n' +
             '                            <button type="button" class="btn btn-xs btn-minus">&minus;</button>\n' +
             '                            <input onkeyup="if(this.value.length===1){this.value=this.value.replace(/[^1-9]/g,\'\')}' +
@@ -157,7 +177,7 @@ function showCartList(cartList) {
             '                            <button type="button" class="btn btn-xs btn-plus">&plus;</button>\n' +
             '                        </td>\n' +
             '                        <td class="text-center">\n' +
-            '                            <button type="button" class="btn btn-xs" id="item-delete">删除</button>\n' +
+            '                            <button type="button" class="btn btn-xs btn-delete" >删除</button>\n' +
             '                        </td>\n' +
             '                    </tr>';
     }
@@ -216,7 +236,7 @@ function updateCartNum(tcId, totalNum, obj) {
         dataType: 'json',
         contentType: 'application/json;charset=utf8',
         error : function () {
-            window.location = "error.html";
+            window.location.href = "error.html";
         },
         success: function (msg) {
             var reg = new RegExp('"', 'g'),
@@ -230,13 +250,13 @@ function updateCartNum(tcId, totalNum, obj) {
                 }
                 else {
                     // 删除该购物车信息
-                    $(obj).parent().parent().remove();
+                    $(obj).parents('tr').remove();
                     // 变更总数量和总金额
                     changeNumAndMoney();
                 }
             }
             else if (data === 'false') {
-                window.location = 'error.html';
+                window.location.href = 'error.html';
             }
         }
     })
@@ -278,22 +298,64 @@ function changeNumAndMoney() {
 }
 
 ////////////////////////////////
-//          用户注销处理       //
+//          商品删除处理       //
 ////////////////////////////////
-function logout() {
-    var isLogout = confirm('确认退出当前账户吗？');
-    if (isLogout){
-        // 确认注销
-        $.post('logout.do', function (msg) {
+function deleteCart(tcIdStr, objArray) {
+    var params = JSON.stringify({
+        tcIdStr : tcIdStr
+    });
+
+    $.ajax({
+        async: false,
+        url: 'deleteCart.do',
+        data: params,
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json;charset=utf8',
+        error : function () {
+            window.location.href = "error.html";
+        },
+        success:function (msg) {
             var reg = new RegExp('"', 'g'),
                 data = msg.replace(reg, '');
-            if (data === 'logout'){
-                window.location.href = 'login.html';
-            }else {
-                window.location = 'error.html';
+            if (data === 'true') {
+                // 删除该购物车信息
+                for (var i in objArray) {
+                    $(objArray[i]).parents('tr').remove();
+                }
             }
-        }).error(function () {
-            window.location = 'error.html';
-        });
-    }
+            else if (data === 'false') {
+                window.location.href = 'error.html';
+            }
+        }
+    })
+}
+
+////////////////////////////////
+//          商品购买处理       //
+////////////////////////////////
+function buyCart() {
+    $.ajax({
+        async: false,
+        url: 'insertOrder.do',
+        type: 'POST',
+        contentType: 'application/json;charset=utf8',
+        error : function () {
+            window.location.href = "error.html";
+        },
+        success:function (msg) {
+            var reg = new RegExp('"', 'g'),
+                data = msg.replace(reg, '');
+            if (data === 'true') {
+                alert('订单提交成功，订单详情可前往个人信息页面查看。');
+                window.location.href = 'index.html'
+            }
+            else if (data === 'alert') {
+                alert('当前购物车中无任何可购买的商品。请确认后再购买。');
+            }
+            else if (data === 'false') {
+                window.location.href = 'error.html';
+            }
+        }
+    })
 }

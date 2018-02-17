@@ -1,0 +1,16 @@
+/*
+* 首尾样式
+*/
+.container {
+    max-width: 100%;
+}
+
+#container {
+    max-width: 980px;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 28px;
+    color: #777;
+}

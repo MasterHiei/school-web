@@ -10,18 +10,28 @@ import java.util.Map;
  */
 public interface IDishService {
 
-    // 添加菜单
+    /**
+     * 添加菜单信息
+     **/
     int InsertDish(DishEntity dishEntity) throws Exception;
 
-    // 删除菜单
+    /**
+     * 删除菜单信息
+     **/
     int DeleteDish(DishEntity dishEntity) throws Exception;
 
-    // 更新菜单
+    /**
+     * 更新菜单信息
+     **/
     int UpdateDish(DishEntity dishEntity) throws Exception;
 
-    // 查询全部菜单（动态查询）
+    /**
+     * 查询所有菜单信息
+     **/
     List<DishEntity> SelectAllDish(Map params) throws Exception;
 
-    // 查询菜单数量
+    /**
+     * 查询菜单数量
+     **/
     int SelectDishCount(Map params) throws Exception;
 }

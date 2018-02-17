@@ -20,14 +20,16 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception{
         // 获取请求地址
         String requestURL = request.getRequestURL().toString();
+        // 获取当前session
+        HttpSession session = request.getSession();
         // 判断是否为登录或注册关联的请求
         if (requestURL.contains("/login.do") || requestURL.contains("/register.do") || requestURL.contains("/forgotPwd.do")){
-            // 是则允许访问
+            // 是则允许访问同时删除当前session
+            session.invalidate();
             return true;
         }
         else {
             // 否则验证session中的登录信息
-            HttpSession session = request.getSession();
             Object userSession = session.getAttribute(UserEntity.USER_SESSION_NAME);
             if (userSession != null){
                 // session存在，允许访问

@@ -11,14 +11,6 @@ hr {
     margin: 0 0 14px 0;
 }
 
-.container {
-    max-width: 100%;
-}
-
-#container {
-    max-width: 980px;
-}
-
 .side-bar .list-group-item {
     border: 0;
     margin-bottom: 8px;
@@ -76,12 +68,6 @@ span {
 .search-alert {
     display: none;
     text-align: center;
-}
-
-.copyright {
-    text-align: center;
-    margin-top: 28px;
-    color: #777;
 }
 
 #hidden-dataRows {

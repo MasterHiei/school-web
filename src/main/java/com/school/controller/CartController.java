@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,7 +94,7 @@ public class CartController extends BaseController {
             // 创建参数
             Map dishParams = new HashMap();
             dishParams.put("tdId", tdId);
-            dishParams.put("deleteFlg", DishEntity.DISH_DELETE_0);
+            dishParams.put("deleteFlg", DishEntity.DISH_DELETE_FLG_0);
             dishParams.put("start", 0);
             dishParams.put("rows", 1);
             // 获取菜单信息
@@ -193,6 +194,36 @@ public class CartController extends BaseController {
         }
         else {
             LOGGER.error(loggerTitle + "获取购物车信息失败。");
+            return "false";
+        }
+        return "true";
+    }
+
+    /**
+     * 删除用户购物车信息
+     */
+    @RequestMapping("/deleteCart")
+    @ResponseBody
+    public String DeleteCart(@RequestBody Map map)
+            throws Exception {
+
+        // 日志标题
+        String loggerTitle = "DeleteCart（删除用户购物车信息）：";
+
+        // 获取Ajax传递的参数
+        String tcIdStr = map.get("tcIdStr").toString();
+        // 提取购物车ID
+        String[] tcIdArray = tcIdStr.split(",");
+
+        // 根据购物车ID删除购物车信息
+        List<String> resultList = new ArrayList<>();
+        for (String tcId : tcIdArray) {
+            int result = cartService.DeleteCart(Long.parseLong(tcId));
+            resultList.add(String.valueOf(result));
+        }
+        // 检查返回结果集
+        if (resultList.contains("0")) {
+            LOGGER.error(loggerTitle + "删除购物车信息失败。");
             return "false";
         }
         return "true";

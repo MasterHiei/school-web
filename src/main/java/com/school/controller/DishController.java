@@ -38,7 +38,7 @@ public class DishController extends BaseController {
             params.put(entry.getKey(), entry.getValue().trim());
         }
         // 参数补正
-        params.put("deleteFlg", DishEntity.DISH_DELETE_0); // 未删除
+        params.put("deleteFlg", DishEntity.DISH_DELETE_FLG_0); // 未删除
 
         // 从数据库中获取满足当前条件的数据总数
         int rows = dishService.SelectDishCount(params);
@@ -74,7 +74,7 @@ public class DishController extends BaseController {
         }
 
         // 剩余参数补正
-        params.put("deleteFlg", DishEntity.DISH_DELETE_0); // 未删除
+        params.put("deleteFlg", DishEntity.DISH_DELETE_FLG_0); // 未删除
         params.put("start", Integer.parseInt(params.get("start").toString())); //格式转换
         params.put("rows", Integer.parseInt(params.get("rows").toString())); //格式转换
 

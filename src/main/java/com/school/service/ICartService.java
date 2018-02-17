@@ -9,14 +9,18 @@ import java.util.Map;
  * ICartService
  */
 public interface ICartService {
-    // 添加菜单
+    /**
+     * 添加购物车信息
+     **/
     int InsertCart(CartEntity cartEntity) throws Exception;
 
-    // 删除菜单
+    /**
+     * 删除购物车信息
+     **/
     int DeleteCart(Long tcId) throws Exception;
 
     /**
-     * 更新用户的购物车信息（数量）
+     * 更新购物车信息（数量）
      * @param map 更新条件
      *            exp.
      *            param = {用户ID: tuId, 菜单ID: tdId}
@@ -26,7 +30,7 @@ public interface ICartService {
     int UpdateCart(Map map) throws Exception;
 
     /**
-     * 查询用户的所有购物车信息
+     * 查询用户所有购物车信息
      * @param map 查询条件
      *            exp.
      *            param = {用户ID: tuId, 菜单ID: tdId}

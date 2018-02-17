@@ -32,10 +32,10 @@ public class UserEntity implements Serializable {
     public static final long CANTEEN_PERMISSION = 1002;
     /** STUDENT_PERMISSION */
     public static final long STUDENT_PERMISSION = 1003;
-    /** USER_DELETE_0 */
-    public static final String USER_DELETE_0 = "0";
-    /** USER_DELETE_1 */
-    public static final String USER_DELETE_1 = "1";
+    /** USER_DELETE_FLG_0 */
+    public static final String USER_DELETE_FLG_0 = "0";
+    /** USER_DELETE_FLG_1 */
+    public static final String USER_DELETE_FLG_1 = "1";
     
     /** tcId  */
     private Long tuId;

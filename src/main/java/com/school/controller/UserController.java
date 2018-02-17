@@ -66,7 +66,7 @@ public class UserController extends BaseController {
         // 参数赋值
         UserEntity params = new UserEntity();
         params.setTuName(tuName);
-        params.setDeleteFlg(UserEntity.USER_DELETE_0);
+        params.setDeleteFlg(UserEntity.USER_DELETE_FLG_0);
 
         // 查询单个用户
         UserEntity userEntity = userService.SelectOneUser(params);
@@ -74,7 +74,7 @@ public class UserController extends BaseController {
         if (userEntity != null){
             // 密码不匹配时的处理
             if (!userEntity.getTuPwd().equals(tuPwd)){
-                msg = "对不起，您输入的密码不正确。";
+                msg = "invalid";
                 return msg;
             }
             // 正常处理
@@ -91,7 +91,7 @@ public class UserController extends BaseController {
             }
         }else {
             // 用户名不匹配时的处理
-            msg = "对不起，该账户不存在。";
+            msg = "null";
         }
         return msg;
     }
@@ -115,7 +115,7 @@ public class UserController extends BaseController {
             // 2.用户身份
             userEntity.setTiId(UserEntity.STUDENT_PERMISSION);
             // 3.激活状态
-            userEntity.setDeleteFlg(UserEntity.USER_DELETE_0);
+            userEntity.setDeleteFlg(UserEntity.USER_DELETE_FLG_0);
 
             // 添加用户
             int result = userService.InsertUser(userEntity);
@@ -149,7 +149,7 @@ public class UserController extends BaseController {
         // 参数赋值
         UserEntity params = new UserEntity();
         params.setTuName(tuName);
-        params.setDeleteFlg(UserEntity.USER_DELETE_0);
+        params.setDeleteFlg(UserEntity.USER_DELETE_FLG_0);
 
         // 查询单个用户
         UserEntity userEntity = userService.SelectOneUser(params);

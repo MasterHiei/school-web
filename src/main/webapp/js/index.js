@@ -4,8 +4,8 @@ $(function () {
     ////////////////////////////////////////////////////
     // 页面初始化时执行的操作
     $(document).ready(function () {
-        // 1.登录验证处理
-        validUserSession();
+        // 1.显示购物车数量
+        getCartNum();
         // 2.显示餐厅列表
         getProviderList();
         // 3.显示菜单列表（分页处理）
@@ -66,13 +66,6 @@ $(function () {
     });
 
     //////////////////////////////////////////////////////
-    // 用户注销超链接点击事件
-    $('#logout').click(function () {
-        // 注销处理
-        logout();
-    });
-
-    //////////////////////////////////////////////////////
     // 禁止用户名超链接点击事件
     // TODO:用户信息页面
     $('#user-label').click(function (e) {
@@ -81,37 +74,6 @@ $(function () {
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////
-//         用户登录验证        //
-////////////////////////////////
-function validUserSession() {
-    // 向后台提交请求以触发过滤器
-    $.ajax({
-        async: false,
-        url: 'validSession.do',
-        type: 'POST',
-        error: function () {
-            window.location = 'error.html';
-        },
-        success: function (msg) {
-            // 返回值处理
-            var reg = new RegExp('"', 'g'),
-                data = msg.replace(reg, '').split(':');
-            // 判断返回值
-            if (data[0] === 'loginOut'){
-                // 验证失败，提示并跳转至错误页面
-                window.location.href = 'error.html';
-            }
-            else if (data[0] === 'session'){
-                // 验证通过，将用户名展示在页面
-                $('#user-label').text(data[1]);
-                // 获取用户购物车信息，显示其数量
-                getCartNum();
-            }
-        }
-    })
-}
 
 ////////////////////////////////
 // 请求后台获取数据库中的餐厅信息 //
@@ -349,9 +311,8 @@ function saveCartInfo(tdId) {
 //         购物车数量更新       //
 ////////////////////////////////
 function addCartNum(plusNum) {
-    var text = $('#mycart').text().toString(),
-        num = text.substring(text.indexOf('(') + 1, text.indexOf(')'));
-    $('#mycart').text('我的购物车('+ (parseInt(num) + parseInt(plusNum)) +')');
+    var num = $('.badge').text().toString();
+    $('.badge').text(parseInt(num) + parseInt(plusNum));
 }
 
 ////////////////////////////////
@@ -366,25 +327,4 @@ function getCartNum() {
             addCartNum(data);
         }
     })
-}
-
-////////////////////////////////
-//          用户注销处理       //
-////////////////////////////////
-function logout() {
-    var isLogout = confirm('确认退出当前账户吗？');
-    if (isLogout){
-        // 确认注销
-        $.post('logout.do', function (msg) {
-            var reg = new RegExp('"', 'g'),
-                data = msg.replace(reg, '');
-            if (data === 'logout'){
-                window.location.href = 'login.html';
-            }else {
-                window.location = 'error.html';
-            }
-        }).error(function () {
-            window.location = 'error.html';
-        });
-    }
 }

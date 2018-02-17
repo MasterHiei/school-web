@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.school.dao.OrderDao">
+    <!-- 添加订单信息 -->
+    <insert id="InsertOrder" parameterType="com.school.entity.OrderEntity">
+        INSERT INTO tbl_order(toNum, toPrice, toDate, tuId, tdName, statusFlg, deleteFlg)
+          VALUES (#{toNum},#{toPrice},CURRENT_TIMESTAMP,#{tuId},#{tdName},#{statusFlg},#{deleteFlg})
+    </insert>
+
+    <!-- 删除订单信息 -->
+    <update id="DeleteOrder" parameterType="java.lang.Long">
+        UPDATE tbl_order SET deleteFlg='1' WHERE toId=#{toId}
+    </update>
+
+</mapper>

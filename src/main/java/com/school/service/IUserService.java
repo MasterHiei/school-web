@@ -9,19 +9,39 @@ import java.util.List;
  */
 public interface IUserService {
 
-    // 添加用户
+    /**
+     * 添加用户信息
+     **/
     int InsertUser(UserEntity userEntity) throws Exception;
-    // 删除用户
+
+    /**
+     * 添加用户信息
+     **/
     int DeleteUser(UserEntity userEntity) throws Exception;
-    // 修改用户
+
+    /**
+     * 更新用户信息
+     **/
     int UpdateUser(UserEntity userEntity) throws Exception;
-    // 查询单个用户
+
+    /**
+     * 查询用户信息
+     **/
     UserEntity SelectOneUser(UserEntity userEntity) throws Exception;
-    //查询全部用户
+
+    /**
+     * 查询所有用户信息
+     **/
     List<UserEntity> SelectAllUser(UserEntity userEntity) throws Exception;
-    //查询用户展示名
+
+    /**
+     * 查询用户名
+     **/
     String SelectExhibitor(long tuId) throws Exception;
-    // 查询全部用户数量
+
+    /**
+     * 查询用户数量
+     **/
     int SelectUserCount() throws Exception;
 
 }

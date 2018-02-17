@@ -27,29 +27,36 @@ import java.math.BigDecimal;
 public class OrderEntity implements Serializable {
     /** Serial UID */
     private static final long serialVersionUID = 1L;
+    /** ORDER_DELETE_FLG_0 */
+    public static final String ORDER_DELETE_FLG_0 = "0";
+    /** ORDER_DELETE_FLG_1 */
+    public static final String ORDER_DELETE_FLG_1 = "1";
+    /** ORDER_STATUS_FLG_0（未受理） */
+    public static final String ORDER_STATUS_FLG_0 = "0";
+    /** ORDER_STATUS_FLG_1（已受理） */
+    public static final String ORDER_STATUS_FLG_1 = "1";
+    /** ORDER_STATUS_FLG_2（已完成） */
+    public static final String ORDER_STATUS_FLG_2 = "2";
     
     /** toId  */
     private Long toId;
     
-    /** tsId  */
-    private Long tsId;
-    
-    /** tdId  */
-    private Long tdId;
-    
-    /** toNo  */
-    private String toNo;
+    /** toNum  */
+    private int toNum;
     
     /** toPrice  */
     private String toPrice;
-    
+
+    /** tdName  */
+    private String tdName;
+
     /** toDate  */
-    private Timestamp toDate;
+    private Date toDate;
+
+    /** tuId  */
+    private Long tuId;
     
-    /** toDetail  */
-    private String toDetail;
-    
-    /** statusFlg 0：未完成 1：已完成 */
+    /** statusFlg 0：未受理 1：已受理 2：已完成 */
     private String statusFlg;
     
     /** deleteFlg  */
@@ -71,45 +78,17 @@ public class OrderEntity implements Serializable {
     }
     
     /**
-     * @return the tsId
+     * @return the toNum
      */
-    public Long getTsId() {
-        return this.tsId;
+    public int getToNum() {
+        return this.toNum;
     }
 
     /**
-     * @param tsId the tsId to set
+     * @param toNum the toNum to set
      */
-    public void setTsId(Long tsId) {
-        this.tsId = tsId;
-    }
-    
-    /**
-     * @return the tdId
-     */
-    public Long getTdId() {
-        return this.tdId;
-    }
-
-    /**
-     * @param tdId the tdId to set
-     */
-    public void setTdId(Long tdId) {
-        this.tdId = tdId;
-    }
-    
-    /**
-     * @return the toNo
-     */
-    public String getToNo() {
-        return this.toNo;
-    }
-
-    /**
-     * @param toNo the toNo to set
-     */
-    public void setToNo(String toNo) {
-        this.toNo = toNo;
+    public void setToNum(int toNum) {
+        this.toNum = toNum;
     }
     
     /**
@@ -125,33 +104,47 @@ public class OrderEntity implements Serializable {
     public void setToPrice(String toPrice) {
         this.toPrice = toPrice;
     }
-    
+
+    /**
+     * @return the tdName
+     */
+    public String getTdName() {
+        return this.tdName;
+    }
+
+    /**
+     * @param tdName the tdName to set
+     */
+    public void setTdName(String tdName) {
+        this.tdName = tdName;
+    }
+
+    /**
+     * @return the tuId
+     */
+    public Long getTuId() {
+        return this.tuId;
+    }
+
+    /**
+     * @param tuId the tuId to set
+     */
+    public void setTuId(Long tuId) {
+        this.tuId = tuId;
+    }
+
     /**
      * @return the toDate
      */
-    public Timestamp getToDate() {
+    public Date getToDate() {
         return this.toDate;
     }
 
     /**
      * @param toDate the toDate to set
      */
-    public void setToDate(Timestamp toDate) {
+    public void setToDate(Date toDate) {
         this.toDate = toDate;
-    }
-    
-    /**
-     * @return the toDetail
-     */
-    public String getToDetail() {
-        return this.toDetail;
-    }
-
-    /**
-     * @param toDetail the toDetail to set
-     */
-    public void setToDetail(String toDetail) {
-        this.toDetail = toDetail;
     }
     
     /**
@@ -189,16 +182,13 @@ public class OrderEntity implements Serializable {
     public String toString() {
         return "OrderEntity ["
         	+"toId:"+toId
-        	+",tsId:"+tsId
-        	+",tdId:"+tdId
-        	+",toNo:"+toNo
+        	+",toNum:"+toNum
         	+",toPrice:"+toPrice
-        	+",toDate:"+toDate
-        	+",toDetail:"+toDetail
+            +",toDate:"+toDate
+        	+",tdName:"+tdName
+            +",tuId:"+tuId
         	+",statusFlg:"+statusFlg
         	+",deleteFlg:"+deleteFlg
         +"]";
     }
-    
-
 }

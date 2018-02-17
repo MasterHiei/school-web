@@ -5,11 +5,13 @@
     <title>校园订餐系统</title>
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/mycart.css" />
 
     <script type="text/javascript" src="js/src/jquery.min.js"></script>
     <script type="text/javascript" src="js/src/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/src/jquery.twbsPagination.min.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript" src="js/mycart.js"></script>
 
 </head>
@@ -54,8 +56,8 @@
                         </tr>
                     </thead>
                     <tr>
-                        <div id="cart-alert-null" class="alert alert-warning search-alert" role="alert">
-                            您的购物车中没有商品。
+                        <div id="cart-alert-null" class="alert alert-warning" role="alert">
+                            您的购物车中没有商品
                         </div>
                     </tr>
                     <tbody id="cart-table-body">
@@ -83,7 +85,7 @@
                                     <button class="btn btn-info" id="all-delete">删除选中商品</button>
                                 </li>
                                 <li>
-                                    <button class="btn btn-info">继续购买商品</button>
+                                    <button class="btn btn-info" id="go-index">继续购买商品</button>
                                 </li>
                             </ul>
                         </div>

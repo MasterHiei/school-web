@@ -58,12 +58,18 @@ function login() {
         },
 		success: function (msg) {
         	// 学生账户登录，跳转至订餐页面
-			if (msg === 'student'){
+			if (msg === 'student') {
                 window.location.href = 'index.html';
 			}
             // 管理账户登录，跳转至后台管理页面
-			else if (msg === 'admin'){
+			else if (msg === 'admin') {
                 window.location.href = 'management.html';
+			}
+			else if (msg === 'null') {
+				alert('对不起，该账户不存在。');
+			}
+			else if (msg === 'invalid') {
+				alert('对不起，您输入的密码不正确。');
 			}
         }
 	})

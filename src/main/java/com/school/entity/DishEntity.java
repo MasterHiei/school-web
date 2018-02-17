@@ -28,9 +28,9 @@ public class DishEntity implements Serializable {
     /** Serial UID */
     private static final long serialVersionUID = 1L;
     /** DISH_DELETE_0 */
-    public static final String DISH_DELETE_0 = "0";
+    public static final String DISH_DELETE_FLG_0 = "0";
     /** DISH_DELETE_1 */
-    public static final String DISH_DELETE_1 = "1";
+    public static final String DISH_DELETE_FLG_1 = "1";
     
     /** tdId  */
     private Long tdId;

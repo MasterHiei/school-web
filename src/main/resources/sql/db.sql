@@ -40,7 +40,7 @@ CREATE TABLE tbl_dish(
   tdImg VARCHAR(50),
   tuId INT NOT NULL,
   tdPrice VARCHAR(10) NOT NULL,
-  tdDate DATE NOT NULL,
+  tdDate TIMESTAMP NOT NULL,
   tdDetail VARCHAR(100),
   deleteFlg TINYINT(1) DEFAULT '0',
   PRIMARY KEY(tdId),
@@ -50,26 +50,16 @@ CREATE TABLE tbl_dish(
 -- TABLE ORDER --
 CREATE TABLE tbl_order(
   toId INT AUTO_INCREMENT,
-  toNo VARCHAR(20) NOT NULL,
+  toNum INT(20) NOT NULL COMMENT '商品数量',
   toPrice VARCHAR(10) NOT NULL,
-  toDate DATE NOT NULL,
-  statusFlg TINYINT(1) DEFAULT '0' COMMENT '0：未完成 1：已完成',
-  deleteFlg TINYINT(1) DEFAULT '0',
-  PRIMARY KEY(toId)
-) ENGINE=InnoDB AUTO_INCREMENT=100001 DEFAULT CHARSET=utf8;
-
-
--- TABLE USER&ORDER --
-CREATE TABLE tbl_user_order(
-  tuoId INT AUTO_INCREMENT,
+  toDate TIMESTAMP NOT NULL,
+  tdName VARCHAR(20) NOT NULL,
   tuId INT NOT NULL,
-  toId INT NOT NULL,
-  tuoDetail VARCHAR(100),
-  PRIMARY KEY(tuoId),
-  FOREIGN KEY(tuId) REFERENCES tbl_user(tuId),
-  FOREIGN KEY(toId) REFERENCES tbl_order(toId)
+  statusFlg TINYINT(1) DEFAULT '0' COMMENT '0：未受理 1：已受理 2：已完成',
+  deleteFlg TINYINT(1) DEFAULT '0',
+  PRIMARY KEY(toId),
+  FOREIGN KEY(tuId) REFERENCES tbl_user(tuId)
 ) ENGINE=InnoDB AUTO_INCREMENT=100001 DEFAULT CHARSET=utf8;
-
 
 -- TABLE EXHIBITION --
 CREATE TABLE tbl_exhibition(

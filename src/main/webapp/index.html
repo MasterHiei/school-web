@@ -5,12 +5,14 @@
     <title>校园订餐系统</title>
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/index.css" />
 
     <script type="text/javascript" src="js/src/jquery.min.js"></script>
     <script type="text/javascript" src="js/src/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/src/jquery.twbsPagination.min.js"></script>
     <script type="text/javascript" src="js/src/jquery.fly.min.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
 
 </head>
@@ -25,7 +27,12 @@
                 </a>
                 <ul class="nav navbar-nav">
                     <li><a href="index.html">首页</a></li>
-                    <li><a href="myCart.html" id="mycart">我的购物车(0)</a></li>
+                    <li>
+                        <a href="myCart.html" id="mycart">
+                            我的购物车
+                            <span class="badge">0</span>
+                        </a>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" id="user-label"></a></li>

@@ -1,21 +1,4 @@
 /*
-* 首尾样式
-*/
-.container {
-    max-width: 100%;
-}
-
-#container {
-    max-width: 980px;
-}
-
-.copyright {
-    text-align: center;
-    margin-top: 28px;
-    color: #777;
-}
-
-/*
 * 页面样式
 */
 h3 {
@@ -62,7 +45,7 @@ tbody {
     color: red;
 }
 
-#item-delete {
+.btn-delete {
     color: mediumblue;
     font-size: 14px;
 }
