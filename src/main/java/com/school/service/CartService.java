@@ -16,25 +16,25 @@ public class CartService implements ICartService {
     @Autowired
     private CartDao cartDao;
 
-    // 添加菜单
+    // 添加购物车
     @Override
     public int InsertCart(CartEntity cartEntity) throws Exception {
         return cartDao.InsertCart(cartEntity);
     }
 
-    // 删除菜单
+    // 删除购物车
     @Override
     public int DeleteCart(Long tcId) throws Exception {
         return cartDao.DeleteCart(tcId);
     }
 
-    // 更新菜单
+    // 更新购物车
     @Override
     public int UpdateCart(Map map) throws Exception {
         return cartDao.UpdateCart(map);
     }
 
-    // 查询全部菜单（动态查询）
+    // 查询全部购物车（动态查询）
     @Override
     public List<CartEntity> SelectAllCart(Map map) throws Exception {
         return cartDao.SelectAllCart(map);
