@@ -60,7 +60,9 @@ public class UserEntity implements Serializable {
     
     /** deleteFlg  */
     private String deleteFlg;
-    
+
+    /** tiName **/
+    private String tiName;
 
     /**
      * @return the tuId
@@ -173,8 +175,22 @@ public class UserEntity implements Serializable {
     public void setDeleteFlg(String deleteFlg) {
         this.deleteFlg = deleteFlg;
     }
-    
-	/**
+
+    /**
+     * @return the tiName
+     */
+    public String getTiName() {
+        return tiName;
+    }
+
+    /**
+     * @param tiName the tiName to set
+     */
+    public void setTiName(String tiName) {
+        this.tiName = tiName;
+    }
+
+    /**
      * 覆盖父类toString方法
      */    
     @Override
@@ -188,6 +204,7 @@ public class UserEntity implements Serializable {
         	+",tiId:"+tiId
         	+",tcDetail:"+tuDetail
         	+",deleteFlg:"+deleteFlg
+            +",tiName:"+tiName
         +"]";
     }
     

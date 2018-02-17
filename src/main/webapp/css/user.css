@@ -1,0 +1,29 @@
+a {
+    color: #FFFFFF;
+}
+
+.nav-panel, .nav-panel > .panel-heading {
+    border-style: none;
+    background: #0D1E2A none;
+    color: #FFFFFF;
+}
+
+.none-padding {
+    padding: 0;
+}
+
+.none-padding-left {
+    padding-left: 0;
+}
+
+.none-padding-right {
+    padding-right: 0;
+}
+
+input {
+    border-style: none;
+}
+
+.input-password {
+    display: none;
+}

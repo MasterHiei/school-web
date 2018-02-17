@@ -49,7 +49,7 @@ function register() {
     var userData = JSON.stringify({
         tuName: $('#username').val(),
         tuPwd: $.md5($('#password').val()),
-        tuAddress: $('#address').val()
+        tuAddress: $('#address').val().toString().escape()
     });
 
     $.ajax({
@@ -63,12 +63,12 @@ function register() {
         },
         success: function (msg) {
             // 注册成功，跳转至登录页面
-            if (msg === 'success'){
+            if (msg === 'true'){
                 alert('注册成功。');
                 window.location.href = 'login.html';
             }
-            else {
-                alert(msg);
+            else if (msg === 'false') {
+                alert('创建账户时发生未知错误，请重新注册。');
             }
         }
     })
@@ -97,18 +97,19 @@ function checkNameUsed(){
         });
 
     $.ajax({
-        url: 'userName.do',
+        url: 'selectUserName.do',
         type: 'POST',
         dataType: 'json',
         data: name,
         contentType: 'application/json;charset=utf8',
-        error: function (msg) {
+        error: function () {
             alert('非常抱歉，由于系统发生未知错误，请您稍后重试。');
         },
         success: function (msg) {
-            if (msg === 'unused') {
+            if (msg === 'true') {
                 $('#hiddenFlg').val('1');
-            }else {
+            }
+            else if (msg === 'false') {
                 $('#hiddenFlg').val('0');
             }
         }

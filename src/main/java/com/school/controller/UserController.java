@@ -54,7 +54,7 @@ public class UserController extends BaseController {
      */
     @RequestMapping("/login")
     @ResponseBody
-    public String SelectOneUser(@RequestBody Map map, HttpSession session)
+    public String Login(@RequestBody Map map, HttpSession session)
             throws Exception{
 
         // 获取Ajax传递的参数
@@ -101,7 +101,7 @@ public class UserController extends BaseController {
      */
     @RequestMapping("/register")
     @ResponseBody
-    public String InsertUser(@RequestBody UserEntity userEntity) throws Exception{
+    public String Register(@RequestBody UserEntity userEntity) throws Exception{
 
         String msg;
 
@@ -122,13 +122,13 @@ public class UserController extends BaseController {
 
             if (result == 1){
                 // 添加成功时的处理
-                msg = "success";
+                msg = "true";
             }else {
                 // 添加失败时的处理
-                msg = "创建账户时发生未知错误，请重新注册。";
+                msg = "false";
             }
         }else {
-            msg = "创建账户时发生未知错误，请重新注册。";
+            msg = "false";
         }
         return msg;
     }
@@ -136,9 +136,9 @@ public class UserController extends BaseController {
     /**
      * 查询用户名是否存在
      */
-    @RequestMapping("/userName")
+    @RequestMapping("/selectUserName")
     @ResponseBody
-    public String SelectOneUser(@RequestBody Map map)
+    public String SelectUserName(@RequestBody Map map)
             throws Exception{
 
         // 获取Ajax传递的参数
@@ -156,21 +156,12 @@ public class UserController extends BaseController {
 
         if (userEntity == null){
             // 正常处理
-            msg = "unused";
+            msg = "true";
         }else {
             // 用户名已被使用时的处理
-            msg = "用户名已存在。";
+            msg = "false";
         }
         return msg;
-    }
-
-    /**
-     * 查询所有用户
-     */
-    @RequestMapping("/selectAllUser")
-    @ResponseBody
-    public String SelectAllUser() throws Exception{
-        return "";
     }
 
     /**
@@ -203,5 +194,38 @@ public class UserController extends BaseController {
             return jsonStr;
         }
         return "";
+    }
+
+    /**
+     * 查询单个用户信息
+     */
+    @RequestMapping("/selectOneUser")
+    @ResponseBody
+    public String SelectOneUser(HttpSession session) throws Exception{
+
+        // 日志标题
+        final String LOGGER_TITLE = "SelectOneUser: 用户信息查询";
+
+        UserEntity params = new UserEntity();
+        // 从session中获取用户名
+        params.setTuName(session.getAttribute(UserEntity.USER_SESSION_NAME).toString());
+        params.setDeleteFlg(UserEntity.USER_DELETE_FLG_0);
+
+        UserEntity user = new UserEntity();
+        // 执行查询
+        try {
+            user = userService.SelectOneUser(params);
+        }
+        catch (Exception ex) {
+            LOGGER.error(LOGGER_TITLE + "用户信息查询失败。");
+        }
+
+        String jsonStr = "";
+
+        if (user != null) {
+            jsonStr = com.alibaba.fastjson.JSONObject.toJSONString(user);
+        }
+
+        return jsonStr;
     }
 }

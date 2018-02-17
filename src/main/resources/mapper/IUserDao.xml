@@ -21,7 +21,10 @@
 
     <!-- 查询单个用户 -->
     <select id="SelectOneUser" parameterType="com.school.entity.UserEntity" resultType="com.school.entity.UserEntity">
-        SELECT * FROM tbl_user WHERE tuName=#{tuName} AND deleteFlg=#{deleteFlg}
+        SELECT *, CASE
+          WHEN tiId='1001' THEN '管理员' WHEN tiId='1002' THEN '负责人' WHEN tiId='1003' THEN '普通用户'
+          END AS 'tiName'
+        FROM tbl_user WHERE tuName=#{tuName} AND deleteFlg=#{deleteFlg}
     </select>
     
     <resultMap type="com.school.entity.UserEntity" id="user">
