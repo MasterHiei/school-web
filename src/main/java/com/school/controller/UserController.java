@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * UserController
@@ -34,8 +31,10 @@ public class UserController extends BaseController {
     @ResponseBody
     public String ValidSession(HttpSession session) {
         // 返回session值（tuName）
-        String msg = "session:" + session.getAttribute(UserEntity.USER_SESSION_NAME).toString();
-        return msg;
+        String result = "login" + ","
+                + session.getAttribute(UserEntity.USER_SESSION_ID).toString() + ","
+                + session.getAttribute(UserEntity.USER_SESSION_NAME).toString();
+        return result;
     }
 
     /**
@@ -204,7 +203,7 @@ public class UserController extends BaseController {
     public String SelectOneUser(HttpSession session) throws Exception{
 
         // 日志标题
-        final String LOGGER_TITLE = "SelectOneUser: 用户信息查询";
+        final String LOGGER_TITLE = "SelectOneUser（查询用户信息）：";
 
         UserEntity params = new UserEntity();
         // 从session中获取用户名
@@ -227,5 +226,41 @@ public class UserController extends BaseController {
         }
 
         return jsonStr;
+    }
+
+    /**
+     * 修改用户信息
+     */
+    @RequestMapping("/updateUser")
+    @ResponseBody
+    public String UpdateUser(@RequestBody Map map)
+            throws Exception{
+
+        // 日志标题
+        final String LOGGER_TITLE = "UpdateUser（修改用户信息）：";
+
+        // 获取AJAX传递的参数
+        UserEntity params = new UserEntity();
+        params.setTuId(Long.parseLong(map.get("tuId").toString()));
+        params.setTuName(map.get("tuName").toString());
+        params.setTuPwd(map.get("tuPwd").toString());
+        params.setTuAddress(map.get("tuAddress").toString());
+
+        String result = null;
+        try {
+            // 执行更新
+            int ret = userService.UpdateUser(params);
+
+            if (ret > 0) {
+                result = "true";
+            }
+            else {
+                result = "false";
+                throw new Exception("");
+            }
+        } catch (Exception ex) {
+            LOGGER.error(LOGGER_TITLE + "用户信息修改失败。");
+        }
+        return result;
     }
 }

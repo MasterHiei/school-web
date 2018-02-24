@@ -13,23 +13,25 @@ import java.util.Map;
  * DishService
  */
 @Service("DishService")
-@Transactional
 public class DishService implements IDishService {
 
     @Autowired
     private DishDao dishDao;
 
     @Override
+    @Transactional
     public int InsertDish(DishEntity dishEntity) throws Exception {
         return dishDao.InsertDish(dishEntity);
     }
 
     @Override
+    @Transactional
     public int DeleteDish(DishEntity dishEntity) throws Exception {
         return dishDao.DeleteDish(dishEntity);
     }
 
     @Override
+    @Transactional
     public int UpdateDish(DishEntity dishEntity) throws Exception {
         return dishDao.UpdateDish(dishEntity);
     }

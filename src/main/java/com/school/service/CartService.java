@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 @Service("CartService")
-@Transactional
 public class CartService implements ICartService {
 
     @Autowired
@@ -18,18 +17,21 @@ public class CartService implements ICartService {
 
     // 添加购物车
     @Override
+    @Transactional
     public int InsertCart(CartEntity cartEntity) throws Exception {
         return cartDao.InsertCart(cartEntity);
     }
 
     // 删除购物车
     @Override
+    @Transactional
     public int DeleteCart(Long tcId) throws Exception {
         return cartDao.DeleteCart(tcId);
     }
 
     // 更新购物车
     @Override
+    @Transactional
     public int UpdateCart(Map map) throws Exception {
         return cartDao.UpdateCart(map);
     }

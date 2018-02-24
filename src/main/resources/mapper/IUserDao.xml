@@ -15,8 +15,28 @@
 
     <!-- 修改用户 -->
     <update id="UpdateUser" parameterType="com.school.entity.UserEntity">
-        UPDATE tbl_user SET tuName=#{tuName},tuPwd=#{tuPwd},tuAddress=#{tuAddress},tuDetail=#{tuDetail}
-        WHERE tuName=#{tuName}
+        UPDATE tbl_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="tuName != null and tuName.length > 0">
+                tuName=#{tuName},
+            </if>
+            <if test="tuPwd != null and tuPwd.length > 0">
+                tuPwd=#{tuPwd},
+            </if>
+            <if test="tuAddress != null and tuAddress.length > 0">
+                tuAddress=#{tuAddress},
+            </if>
+            <if test="tuDetail != null and tuDetail.length > 0">
+                tuDetail=#{tuDetail},
+            </if>
+            <if test="tiId != null">
+                tiId=#{tiId},
+            </if>
+            <if test="deleteFlg != null">
+                deleteFlg=#{deleteFlg}
+            </if>
+        </trim>
+        WHERE tuId=#{tuId}
     </update>
 
     <!-- 查询单个用户 -->

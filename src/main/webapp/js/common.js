@@ -7,6 +7,11 @@ $(function () {
         validUserSession();
     });
 
+    // 用户名超链接点击事件
+    $('#user-label').click(function () {
+        window.location.href = 'user.html';
+    })
+
     // 用户注销超链接点击事件
     $('#logout').click(function () {
         // 注销处理
@@ -26,19 +31,19 @@ function validUserSession() {
         },
         success: function (msg) {
             // 返回值处理
-            var reg = new RegExp('"', 'g'),
-                data = msg.replace(reg, '').split(':');
+            var data = msg.replace(new RegExp('"', 'g'), '').split(',');
             // 判断返回值
-            if (data[0] === 'loginOut'){
+            if (data[0] === 'logout') {
                 // 验证失败，提示并跳转至错误页面
-                window.location.href = 'error.html';
+                window.location.href = 'login.html';
             }
-            else if (data[0] === 'session'){
+            else if (data[0] === 'login') {
                 // 验证通过，将用户名展示在页面
-                $('#user-label').text(data[1]);
+                $('#user-label').attr('tuId', data[1]);
+                $('#user-label').text(data[2]);
             }
         }
-    })
+    });
 }
 
 // 用户注销处理

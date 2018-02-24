@@ -12,7 +12,6 @@ import java.util.List;
  * UserService
  */
 @Service("UserService")
-@Transactional
 public class UserService implements IUserService {
 
     @Autowired
@@ -20,12 +19,14 @@ public class UserService implements IUserService {
 
     // 添加用户
     @Override
+    @Transactional
     public int InsertUser(UserEntity userEntity) throws Exception{
         return userDao.InsertUser(userEntity);
     }
 
     // 删除用户
     @Override
+    @Transactional
     public int DeleteUser(UserEntity userEntity) throws Exception{
         return userDao.DeleteUser(userEntity);
     }

@@ -13,7 +13,6 @@ import java.util.Map;
  * OrderService
  */
 @Service("OrderService")
-@Transactional
 public class OrderService implements IOrderService {
     @Autowired
     private OrderDao orderDao;
@@ -22,6 +21,7 @@ public class OrderService implements IOrderService {
      * 添加订单信息
      **/
     @Override
+    @Transactional
     public int InsertOrder(OrderEntity orderEntity) throws Exception {
         return orderDao.InsertOrder(orderEntity);
     }
@@ -30,6 +30,7 @@ public class OrderService implements IOrderService {
      * 删除订单信息
      **/
     @Override
+    @Transactional
     public int DeleteOrder(Long toId) throws Exception {
         return orderDao.DeleteOrder(toId);
     }

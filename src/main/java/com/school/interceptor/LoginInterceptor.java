@@ -41,7 +41,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         // 判断是否为Ajax请求
         if (requestType.equals("XMLHttpRequest")){
             // 是则返回前台处理
-            response.getWriter().print("loginOut");
+            response.getWriter().print("logout");
         }else {
             // 否则直接跳转至登录页面
             response.sendRedirect("/login.html");

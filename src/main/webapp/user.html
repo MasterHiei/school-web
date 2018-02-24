@@ -9,9 +9,10 @@
     <link rel="stylesheet" href="css/user.css" />
 
     <script type="text/javascript" src="js/src/jquery.min.js"></script>
+    <script type="text/javascript" src="js/src/jquery.md5.js"></script>
     <script type="text/javascript" src="js/src/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/src/jquery.twbsPagination.min.js"></script>
-    <script type="text/javascript" src="js/common1.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript" src="js/user.js"></script>
 
 </head>
@@ -26,6 +27,12 @@
                 </a>
                 <ul class="nav navbar-nav">
                     <li><a href="index.html">首页</a></li>
+                    <li>
+                        <a href="myCart.html" id="mycart">
+                            我的购物车
+                            <span class="badge">0</span>
+                        </a>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" id="user-label"></a></li>
@@ -38,50 +45,72 @@
         <div class="container none-padding">
             <div class="col-sm-2 none-padding-left">
                 <div class="panel nav-panel">
-                    <div class="panel-heading dark">
-                        title
+                    <div class="panel-heading">
+                        🔗菜&nbsp;单
                     </div>
                     <div class="panel-body">
                         <ul class="nav nav-pills nav-stacked">
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3 </a></li>
+                            <li class="active"><a href="#">个人信息</a></li>
+                            <li><a href="#">我的订单</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-10 none-padding-right">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        title2
-                    </div>
-                    <div class="panel-body">
-                        <ul class="list-unstyled">
-                            <li class="input-item">
-                                <span>用户姓名</span>
-                                <input type="text" id="tuName" readonly="readonly">
-                            </li>
-                            <li class="input-item">
-                                <span>注册日期</span>
-                                <input type="text" id="tuDate" readonly="readonly">
-                            </li>
-                            <li class="input-item input-password">
-                                <span>用户密码</span>
-                                <input type="password" id="tuPwd">
-                            </li>
-                            <li class="input-item input-password">
-                                <span>确认密码</span>
-                                <input type="password" id="re-tuPwd">
-                            </li>
-                            <li class="input-item">
-                                <span>用户类型</span>
-                                <input type="text" id="tiName" readonly="readonly">
-                            </li>
-                            <li class="input-item">
-                                <span>派送地址</span>
-                                <input type="text" id="tuAddress" readonly="readonly">
-                            </li>
-                        </ul>
+            <div class="col-sm-10 none-padding">
+                <div class="container" id="panel-container">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            👤个人信息
+                        </div>
+                        <div class="panel-body">
+                            <!-- 提示框 -->
+                            <div id="save-alert-success" class="alert alert-success user-alert" role="alert">
+                                个人信息保存成功
+                            </div>
+                            <div id="save-alert-error" class="alert alert-danger user-alert" role="alert">
+                                个人信息保存失败
+                            </div>
+                            <ul class="list-unstyled">
+                                <li class="input-item">
+                                    <span>用户姓名：</span>
+                                    <input type="text" id="tuName" class="user-input" readonly="readonly">
+                                </li>
+                                <li class="input-item">
+                                    <span>注册日期：</span>
+                                    <input type="text" id="tuDate" class="user-input" readonly="readonly">
+                                </li>
+                                <li class="input-item input-password">
+                                    <span>用户密码：</span>
+                                    <input type="password" id="tuPwd" class="user-input modify-item">
+                                    <span id="password-msg" class="error-msg"></span>
+                                </li>
+                                <li class="input-item input-password">
+                                    <span>确认密码：</span>
+                                    <input type="password" id="re-tuPwd" class="user-input modify-item">
+                                    <span id="re-password-msg" class="error-msg"></span>
+                                </li>
+                                <li class="input-item">
+                                    <span>用户类型：</span>
+                                    <input type="text" id="tiName" class="user-input" readonly="readonly">
+                                </li>
+                                <li class="input-item">
+                                    <span id="address-span">派送地址：</span>
+                                    <textarea id="tuAddress" class="user-input modify-item" readonly="readonly">
+                                    </textarea>
+                                </li>
+                                <li class="input-item button-item" id="user-btn-list">
+                                    <button type="button" class="btn btn-info user-btn-item" id="user-modify">
+                                        修改个人信息
+                                    </button>
+                                    <button type="button" class="btn btn-info user-btn-item" id="user-confirm">
+                                        保存个人信息
+                                    </button>
+                                    <button type="button" class="btn btn-info user-btn-item" id="user-cancel">
+                                        取&nbsp;&nbsp;消
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
