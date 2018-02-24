@@ -242,7 +242,6 @@ public class UserController extends BaseController {
         // 获取AJAX传递的参数
         UserEntity params = new UserEntity();
         params.setTuId(Long.parseLong(map.get("tuId").toString()));
-        params.setTuName(map.get("tuName").toString());
         params.setTuPwd(map.get("tuPwd").toString());
         params.setTuAddress(map.get("tuAddress").toString());
 

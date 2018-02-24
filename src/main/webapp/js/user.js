@@ -30,7 +30,6 @@ $(function () {
         if (pwdChecked && rePwdChecked) {
             var params = JSON.stringify({
                 tuId: $('#user-label').attr('tuId'),
-                tuName: $('#tuName').val(),
                 tuPwd: tuPwd,
                 tuAddress: $('#tuAddress').val()
             });
