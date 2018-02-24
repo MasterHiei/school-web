@@ -39,7 +39,10 @@ $(function () {
 
     // 取消按钮
     $('#user-cancel').click(function () {
+        // 隐藏输入框
         hideUserInput();
+        // 查询用户信息
+        selectUserInfo();
     });
 
     // 密码检查
@@ -98,6 +101,8 @@ function updateUserInfo(params) {
                 setTimeout("$('#save-alert-success').fadeOut(800)", 1000);
                 // 隐藏输入框
                 hideUserInput();
+                // 查询用户信息
+                selectUserInfo();
             } else {
                 // 显示提示
                 $('#save-alert-error').fadeIn(300);
