@@ -1,11 +1,9 @@
 package com.school.controller;
 
 import com.school.entity.CartEntity;
-import com.school.entity.DishEntity;
 import com.school.entity.OrderEntity;
 import com.school.entity.UserEntity;
 import com.school.service.ICartService;
-import com.school.service.IDishService;
 import com.school.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.util.*;
 
 /**
@@ -33,8 +31,7 @@ public class OrderController extends BaseController {
      */
     @RequestMapping("/insertOrder")
     @ResponseBody
-    public String InsertOrder(HttpSession session)
-            throws Exception {
+    public String InsertOrder(HttpSession session) throws Exception {
 
         // 日志标题
         String loggerTitle = "InsertOrder（添加用户订单信息）：";
@@ -70,6 +67,8 @@ public class OrderController extends BaseController {
                 orderEntity.setTuId(tuId);
                 // 菜单名称
                 orderEntity.setTdName(item.getTdName());
+                // 菜单图片
+                orderEntity.setTdImg(item.getTdImg());
                 // 订单状态
                 orderEntity.setStatusFlg(OrderEntity.ORDER_STATUS_FLG_0); // 未受理
                 // 删除flag
@@ -100,7 +99,43 @@ public class OrderController extends BaseController {
         else {
             return "alert";
         }
-
         return "true";
+    }
+
+    /**
+     * 查询订单信息
+     */
+    @RequestMapping("/selectAllOrder")
+    @ResponseBody
+    public String SelectAllOrder(@RequestBody Map<String, Object> map)
+            throws Exception {
+
+        // 日志标题
+        String loggerTitle = "SelectOrder（查询用户订单信息）：";
+
+        // 创建参数
+        Map params = new HashMap();
+        params.put("tuId", Long.parseLong(map.get("tuId").toString()));
+
+        int period = Integer.parseInt(map.get("period").toString());
+        if (period > 0) {
+            Calendar toDate = Calendar.getInstance();
+            toDate.add(Calendar.DATE, -period);
+            params.put("toDate", toDate.getTime());
+        }
+        params.put("deleteFlg", OrderEntity.ORDER_DELETE_FLG_0);
+
+        List<OrderEntity> orderEntityList;
+        try {
+            orderEntityList = orderService.SelectAllOrder(params);
+        } catch (Exception ex) {
+            LOGGER.error(loggerTitle + "订单信息查询失败。");
+            return "false";
+        }
+        if (orderEntityList.isEmpty()) {
+            return "alert";
+        }
+
+        return com.alibaba.fastjson.JSONObject.toJSONString(orderEntityList);
     }
 }

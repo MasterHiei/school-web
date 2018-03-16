@@ -1,6 +1,5 @@
 package com.school.service;
 
-import com.school.entity.CartEntity;
 import com.school.entity.OrderEntity;
 
 import java.util.List;

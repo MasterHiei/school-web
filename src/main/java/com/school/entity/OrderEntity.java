@@ -50,6 +50,9 @@ public class OrderEntity implements Serializable {
     /** tdName  */
     private String tdName;
 
+    /** tdImg  */
+    private String tdImg;
+
     /** toDate  */
     private Date toDate;
 
@@ -120,6 +123,20 @@ public class OrderEntity implements Serializable {
     }
 
     /**
+     * @return the tdImg
+     */
+    public String getTdImg() {
+        return this.tdImg;
+    }
+
+    /**
+     * @param tdImg the tdImg to set
+     */
+    public void setTdImg(String tdImg) {
+        this.tdImg = tdImg;
+    }
+
+    /**
      * @return the tuId
      */
     public Long getTuId() {
@@ -186,6 +203,7 @@ public class OrderEntity implements Serializable {
         	+",toPrice:"+toPrice
             +",toDate:"+toDate
         	+",tdName:"+tdName
+            +",tdImg:"+tdImg
             +",tuId:"+tuId
         	+",statusFlg:"+statusFlg
         	+",deleteFlg:"+deleteFlg

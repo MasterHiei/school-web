@@ -50,15 +50,19 @@
                     </div>
                     <div class="panel-body">
                         <ul class="nav nav-pills nav-stacked">
-                            <li class="active"><a href="#">个人信息</a></li>
-                            <li><a href="#">我的订单</a></li>
+                            <li class="active" id="myInfo">
+                                <a href="#">个人信息</a>
+                            </li>
+                            <li id="myOrder">
+                                <a href="#">我的订单</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="col-sm-10 none-padding">
                 <div class="container" id="panel-container">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" id="user-panel">
                         <div class="panel-heading">
                             👤个人信息
                         </div>
@@ -110,6 +114,39 @@
                                     </button>
                                 </li>
                             </ul>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" id="order-panel">
+                        <div class="panel-heading">
+                            📄我的订单
+                        </div>
+                        <div class="panel-body">
+                            <!-- 提示框 -->
+                            <div id="order-alert-null" class="alert alert-warning user-alert" role="alert">
+                                您当前还没有任何订餐记录
+                            </div>
+                            <div class="dropdown">
+                                <button type="button" class="btn dropdown-toggle"
+                                        id="orderPeriod" data-toggle="dropdown">
+                                    一周以内
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="orderPeriod">
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="#" period="7">一周以内</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="#" period="90">3个月以内</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="#" period="180">6个月以内</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="#" period="0">全部订单</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <table class="table"></table>
                         </div>
                     </div>
                 </div>

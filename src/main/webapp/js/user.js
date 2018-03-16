@@ -9,7 +9,7 @@ $(function () {
         // 1.显示购物车数量
         getCartNum();
         // 2.查询用户信息
-        selectUserInfo();
+        getUserInfo();
     });
 
     // 点击修改个人信息按钮
@@ -42,7 +42,7 @@ $(function () {
         // 隐藏输入框
         hideUserInput();
         // 查询用户信息
-        selectUserInfo();
+        getUserInfo();
     });
 
     // 密码检查
@@ -54,6 +54,30 @@ $(function () {
     $('#tuPwd').on('blur', function () {
         rePwdChecked = reCheckPassword();
     });
+
+    // 点击个人信息按钮
+    $('#myInfo').click(function () {
+        // 切换按钮状态
+        $(this).parent().find('li').toggleClass('active');
+        // 隐藏订单信息
+        $('#order-panel').hide();
+        // 显示用户信息
+        $('#user-panel').show();
+        // 查询用户信息
+        getUserInfo();
+    });
+
+    // 点击我的订单按钮
+    $('#myOrder').click(function () {
+        // 切换按钮状态
+        $(this).parent().find('li').toggleClass('active');
+        // 隐藏用户信息
+        $('#user-panel').hide();
+        // 显示订单信息
+        $('#order-panel').show();
+        // 查询订单信息
+        getUserOrder(0);
+    });
 });
 
 ////////////////////////////////////////////////////
@@ -61,7 +85,7 @@ $(function () {
 ////////////////////////////////
 //          查询用户信息       //
 ////////////////////////////////
-function selectUserInfo() {
+function getUserInfo() {
     $.ajax({
         async: false,
         url: 'selectOneUser.do',
@@ -102,7 +126,7 @@ function updateUserInfo(params) {
                 // 隐藏输入框
                 hideUserInput();
                 // 查询用户信息
-                selectUserInfo();
+                getUserInfo();
             } else {
                 // 显示提示
                 $('#save-alert-error').fadeIn(300);
@@ -123,7 +147,7 @@ function showUserInfo(userData) {
 
     $('#tuName').val(tuName);
     $('#tuAddress').val(tuAddress);
-    $('#tuDate').val(tuDate.getFullYear() + '年' + tuDate.getMonth() + '月' + tuDate.getDay() + '日');
+    $('#tuDate').val(tuDate.getFullYear() + '年' + (tuDate.getMonth() + 1) + '月' + tuDate.getDate() + '日');
     $('#tiName').val(tiName);
 }
 
@@ -200,4 +224,47 @@ function reCheckPassword() {
     }
     $('#re-password-msg').empty();
     return true;
+}
+
+////////////////////////////////
+//        用户订单信息获取      //
+////////////////////////////////
+function getUserOrder(period) {
+    var params = JSON.stringify({
+            tuId: $('#user-label').attr('tuId'),
+            period: period
+        });
+
+    $.ajax({
+        async: false,
+        url: 'selectAllOrder.do',
+        type: 'POST',
+        data: params,
+        dataType: 'json',
+        contentType: 'application/json;charset=utf8',
+        error: function () {
+            window.location = "error.html";
+        },
+        success: function (msg) {
+            alert(msg);
+            var data = msg.replace(new RegExp('"', 'g'), '');
+            if (data === 'false') {
+                window.location = "error.html";
+            } else if (data === 'alert') {
+                $('#order-alert-null').fadeIn(300);
+                setTimeout("$('#order-alert-null').fadeOut(800)", 2500);
+            } else {
+                var obj = $.parseJSON(data);
+                // 将获取到的订单信息显示到页面
+                showOrderList(obj);
+            }
+        }
+    });
+}
+
+////////////////////////////////
+//        用户订单信息显示      //
+////////////////////////////////
+function showOrderList(jsonObj) {
+
 }

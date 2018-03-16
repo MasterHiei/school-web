@@ -37,7 +37,7 @@ CREATE TABLE tbl_user(
 CREATE TABLE tbl_dish(
   tdId INT AUTO_INCREMENT,
   tdName VARCHAR(20) NOT NULL,
-  tdImg VARCHAR(50),
+  tdImg VARCHAR(50) NOT NULL,
   tuId INT NOT NULL,
   tdPrice VARCHAR(10) NOT NULL,
   tdDate TIMESTAMP NOT NULL,
@@ -54,6 +54,7 @@ CREATE TABLE tbl_order(
   toPrice VARCHAR(10) NOT NULL,
   toDate TIMESTAMP NOT NULL,
   tdName VARCHAR(20) NOT NULL,
+  tdImg VARCHAR(50) NOT NULL,
   tuId INT NOT NULL,
   statusFlg TINYINT(1) DEFAULT '0' COMMENT '0：未受理 1：已受理 2：已完成',
   deleteFlg TINYINT(1) DEFAULT '0',

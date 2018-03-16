@@ -3,8 +3,8 @@
 <mapper namespace="com.school.dao.OrderDao">
     <!-- 添加订单信息 -->
     <insert id="InsertOrder" parameterType="com.school.entity.OrderEntity">
-        INSERT INTO tbl_order(toNum, toPrice, toDate, tuId, tdName, statusFlg, deleteFlg)
-          VALUES (#{toNum},#{toPrice},CURRENT_TIMESTAMP,#{tuId},#{tdName},#{statusFlg},#{deleteFlg})
+        INSERT INTO tbl_order(toNum, toPrice, toDate, tuId, tdName, tdImg, statusFlg, deleteFlg)
+          VALUES (#{toNum},#{toPrice},CURRENT_TIMESTAMP,#{tuId},#{tdName},#{tdImg},#{statusFlg},#{deleteFlg})
     </insert>
 
     <!-- 删除订单信息 -->
@@ -12,4 +12,18 @@
         UPDATE tbl_order SET deleteFlg='1' WHERE toId=#{toId}
     </update>
 
+    <!-- 查询个人订单信息 -->
+    <select id="SelectAllOrder" parameterType="java.util.Map" resultType="com.school.entity.OrderEntity">
+        SELECT tdImg, tdName, toNum, toPrice, toDate, statusFlg
+          FROM tbl_order
+        <where>
+            deleteFlg=#{deleteFlg}
+            <if test="tuId != null and tuId > 0">
+                AND tuId=#{tuId}
+            </if>
+            <if test="toDate != null">
+                AND toDate&gt;=#{toDate}
+            </if>
+        </where>
+    </select>
 </mapper>
